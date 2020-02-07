@@ -1,0 +1,13 @@
+.idea
+
+.DS_Store
+Thumbs.db
+
+/var/cache/*
+!/var/cache/.gitkeep
+/var/log/*
+!/var/log/.gitkeep
+/var/docker/*
+
+/vendor
+/.env
