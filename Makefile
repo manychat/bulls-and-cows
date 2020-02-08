@@ -1,6 +1,6 @@
 up: docker-up
 
-init: docker-clear docker-up permissions api-composer
+init: docker-clear docker-up permissions composer env
 
 docker-clear:
 	docker-compose down --remove-orphans
@@ -11,6 +11,10 @@ docker-up:
 
 permissions:
 	sudo chmod -R 777 var
+	
+env:
+	docker-compose exec php-cli rm -f .env
+	docker-compose exec php-cli ln -sr .env.example .env
 
-api-composer:
+composer:
 	docker-compose exec php-cli composer install
