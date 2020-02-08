@@ -31,7 +31,7 @@ final class Loader
 
     public function load(): void
     {
-        (new Dotenv())
+        (new Dotenv(true))
             ->load($this->fileNameWithPath);
     }
 }

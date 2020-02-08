@@ -3,6 +3,7 @@
 .DS_Store
 Thumbs.db
 
+/var/*
 /var/cache/*
 !/var/cache/.gitkeep
 /var/log/*
