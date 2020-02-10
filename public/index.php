@@ -16,6 +16,8 @@ require ROOT_DIR . '/vendor/autoload.php';
 (function (): void {
     $container = require ROOT_DIR . '/config/container.php';
     $app = Bridge::create($container);
+    (require ROOT_DIR . '/config/middlewares.php')($app);
+    (require ROOT_DIR . '/config/handlers.php')($app);
     (require ROOT_DIR . '/config/routes.php')($app);
     $app->run();
 })();

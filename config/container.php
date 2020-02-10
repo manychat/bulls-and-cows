@@ -10,7 +10,7 @@ use Laminas\ConfigAggregator\PhpFileProvider;
 $aggregator = new ConfigAggregator(
     [
         new PhpFileProvider(ROOT_DIR . '/config/common/*.php'),
-        new PhpFileProvider(ROOT_DIR . '/config/' . (getenv('API_ENV') ?: 'prod') . '/*.php'),
+        new PhpFileProvider(ROOT_DIR . '/config/' . (getenv('ENV') ?: 'prod') . '/*.php'),
     ]
 );
 
