@@ -11,5 +11,7 @@ final class RoutesBuilder extends AbstractBuilder
     public function build(): void
     {
         $this->getApp()->get('/', Action\HomeAction::class . '::handle');
+
+        $this->getApp()->post('/session-start', Action\SessionStartAction::class . '::handle');
     }
 }

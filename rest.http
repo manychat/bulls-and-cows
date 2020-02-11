@@ -2,4 +2,8 @@
 GET https://localhost:8081
 Accept: application/json
 
+### Startt session
+POST https://localhost:8081/session-start
+Accept: application/json
+
 ###

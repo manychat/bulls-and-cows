@@ -46,9 +46,14 @@ return [
         return new ValidationExceptionMiddleware();
     },
 
+    // actions
     Action\HomeAction::class => function (): Action\HomeAction {
         return new Action\HomeAction(
             getenv('APP_NAME')
         );
+    },
+
+    Action\SessionStartAction::class => function (): Action\SessionStartAction {
+        return new Action\SessionStartAction();
     },
 ];
