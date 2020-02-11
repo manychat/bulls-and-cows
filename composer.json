@@ -5,13 +5,19 @@
     "require": {
         "php": ">=7.4.0",
         "ext-json": "*",
+        "doctrine/migrations": "^2.2",
+        "doctrine/orm": "^2.7",
         "laminas/laminas-config-aggregator": "^1.2",
         "laminas/laminas-diactoros": "^2.2",
         "monolog/monolog": "^2.0",
         "php-di/slim-bridge": "^3.0",
+        "ramsey/uuid": "^3.9",
         "slim/psr7": "^1.0",
         "slim/slim": "4.*",
-        "symfony/dotenv": "^5.0"
+        "symfony/console": "^5.0",
+        "symfony/dotenv": "^5.0",
+        "symfony/validator": "^5.0",
+        "webmozart/assert": "^1.6"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master"
@@ -20,5 +26,8 @@
         "psr-4": {
             "Src\\": "src"
         }
+    },
+    "scripts": {
+        "app": "php bin/app.php --ansi"
     }
 }

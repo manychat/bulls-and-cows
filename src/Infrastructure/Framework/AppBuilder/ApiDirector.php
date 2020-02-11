@@ -8,7 +8,7 @@ use DI\Bridge\Slim\Bridge;
 use Slim\App;
 use Src\Infrastructure\Environment\Loader as EnvLoader;
 
-final class AppDirector
+final class ApiDirector
 {
     public static function build(): App
     {

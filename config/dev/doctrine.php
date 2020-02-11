@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 return [
     'config' => [
-        'logger' => [
-            'displayErrorDetails' => true,
+        'doctrine' => [
+            'dev_mode' => true,
         ],
     ],
 ];

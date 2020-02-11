@@ -18,3 +18,10 @@ env:
 
 composer:
 	docker-compose exec php-cli composer install
+
+migration-diff:
+	rm -rf api/var/cache/doctrine
+	docker-compose exec php-cli composer app migrations:diff
+
+migration:
+	docker-compose exec php-cli composer app migrations:migrate
