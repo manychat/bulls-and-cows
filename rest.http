@@ -2,8 +2,20 @@
 GET https://localhost:8081
 Accept: application/json
 
-### Startt session
+### Start session
 POST https://localhost:8081/session-start
+Accept: application/json
+
+### Level choose
+POST https://localhost:8081/level-choose
+Accept: application/json
+
+### Gamoe move
+POST https://localhost:8081/game-move
+Accept: application/json
+
+### Scores
+GET https://localhost:8081/scores
 Accept: application/json
 
 ###

@@ -9,7 +9,6 @@ use Slim\Error\Renderers\JsonErrorRenderer;
 use Slim\Interfaces\CallableResolverInterface;
 use Slim\Interfaces\ErrorHandlerInterface;
 use Slim\Psr7\Factory\ResponseFactory;
-use Src\Http\Action;
 use Src\Http\Middleware\ValidationExceptionMiddleware;
 use Src\Infrastructure\Framework\ErrorHandler\LogHandler;
 use Slim\Error\Renderers\PlainTextErrorRenderer;
@@ -44,16 +43,5 @@ return [
 
     ValidationExceptionMiddleware::class => function (): ValidationExceptionMiddleware {
         return new ValidationExceptionMiddleware();
-    },
-
-    // actions
-    Action\HomeAction::class => function (): Action\HomeAction {
-        return new Action\HomeAction(
-            getenv('APP_NAME')
-        );
-    },
-
-    Action\SessionStartAction::class => function (): Action\SessionStartAction {
-        return new Action\SessionStartAction();
     },
 ];
