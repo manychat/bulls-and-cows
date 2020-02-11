@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Src\Infrastructure\Framework\AppBuilder;
 
 use Doctrine\DBAL\Tools\Console\ConsoleRunner as DBALRunnerAlias;
+use Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper;
 use Doctrine\Migrations\Configuration\Configuration;
 use Doctrine\Migrations\Tools\Console\Helper\ConfigurationHelper;
 use Doctrine\ORM\EntityManagerInterface;
@@ -31,6 +32,7 @@ final class ConsoleDirector
 
         $cli->getHelperSet()->set(new EntityManagerHelper($entityManager), 'em');
         $cli->getHelperSet()->set(new ConfigurationHelper($connection, $configuration), 'configuration');
+        $cli->getHelperSet()->set(new ConnectionHelper($connection), 'db');
 
         ORMConsoleRunner::addCommands($cli);
         DBALRunnerAlias::addCommands($cli);
