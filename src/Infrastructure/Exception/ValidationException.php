@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Src\Infrastructure\Exception;
 
-use \LogicException;
-
-final class ValidationException extends LogicException
+final class ValidationException extends CommonRuntimeException
 {
     private array $errors;
 

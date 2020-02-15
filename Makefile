@@ -1,6 +1,6 @@
 up: docker-up
 
-init: docker-clear docker-up permissions composer env
+init: docker-clear docker-up permissions env composer
 
 docker-clear:
 	docker-compose down --remove-orphans

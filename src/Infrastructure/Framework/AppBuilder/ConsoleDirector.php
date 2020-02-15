@@ -39,7 +39,7 @@ final class ConsoleDirector
 
         $commands = $container->get('config')['console']['commands'] ?? [];
         array_map(
-            function (?string $class) use ($cli, $container): void {
+            function (string $class) use ($cli, $container): void {
                 if ($instance = $container->get($class)) {
                     $cli->add($container->get($class));
                 }

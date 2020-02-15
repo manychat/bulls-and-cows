@@ -1,21 +1,26 @@
 ### Main page
 GET https://localhost:8081
-Accept: application/json
+Content-Type: application/json
 
-### Start session
-POST https://localhost:8081/session-start
-Accept: application/json
+### Init
+POST https://localhost:8081/init
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "John Doe"
+}
 
 ### Level choose
 POST https://localhost:8081/level-choose
-Accept: application/json
+Content-Type: application/json
 
 ### Gamoe move
 POST https://localhost:8081/game-move
-Accept: application/json
+Content-Type: application/json
 
 ### Scores
 GET https://localhost:8081/scores
-Accept: application/json
+Content-Type: application/json
 
 ###

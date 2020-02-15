@@ -12,7 +12,7 @@ final class RoutesBuilder extends AbstractBuilder
     {
         $this->getApp()->get('/', Action\HomeAction::class . '::handle');
 
-        $this->getApp()->post('/session-start', Action\SessionStartAction::class . '::handle');
+        $this->getApp()->post('/init', Action\InitAction::class . '::handle');
 
         $this->getApp()->post('/level-choose', Action\LevelChooseAction::class . '::handle');
 

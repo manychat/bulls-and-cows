@@ -11,5 +11,6 @@ final class MiddlewareBuilder extends AbstractBuilder
     public function build(): void
     {
         $this->getApp()->add(Middleware\ValidationExceptionMiddleware::class . '::process');
+        $this->getApp()->add(Middleware\JsonBodyParserMiddleware::class . '::process');
     }
 }

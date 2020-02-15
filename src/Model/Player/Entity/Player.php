@@ -25,7 +25,7 @@ final class Player
 
     /**
      * @var string
-     * @ORM\Column(type="string", name="subscriber_id")
+     * @ORM\Column(type="bigint", name="subscriber_id", unique=true)
      */
     private $subscriberId;
 
@@ -41,7 +41,7 @@ final class Player
      */
     private $createdAt;
 
-    public function __construct(Id $id, string $subscriberId, string $name)
+    public function __construct(Id $id, int $subscriberId, string $name)
     {
         $this->id = $id;
         $this->subscriberId = $subscriberId;
@@ -54,7 +54,7 @@ final class Player
         return $this->id;
     }
 
-    public function getSubscriberId(): string
+    public function getSubscriberId(): int
     {
         return $this->subscriberId;
     }

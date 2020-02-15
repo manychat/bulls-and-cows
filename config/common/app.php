@@ -9,6 +9,7 @@ use Slim\Error\Renderers\JsonErrorRenderer;
 use Slim\Interfaces\CallableResolverInterface;
 use Slim\Interfaces\ErrorHandlerInterface;
 use Slim\Psr7\Factory\ResponseFactory;
+use Src\Http\Middleware\JsonBodyParserMiddleware;
 use Src\Http\Middleware\ValidationExceptionMiddleware;
 use Src\Infrastructure\Framework\ErrorHandler\LogHandler;
 use Slim\Error\Renderers\PlainTextErrorRenderer;
@@ -43,5 +44,9 @@ return [
 
     ValidationExceptionMiddleware::class => function (): ValidationExceptionMiddleware {
         return new ValidationExceptionMiddleware();
+    },
+
+    JsonBodyParserMiddleware::class => function (): JsonBodyParserMiddleware {
+        return new JsonBodyParserMiddleware();
     },
 ];
