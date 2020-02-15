@@ -21,7 +21,7 @@ final class Handler
         $this->flusher = $flusher;
     }
 
-    public function handle(Command $command): array
+    public function handle(Request $command): void
     {
         $player = $this->players->findBySubscriberId($command->subscriberId);
 
@@ -32,9 +32,5 @@ final class Handler
 
             $this->flusher->flush($player);
         }
-
-        return [
-            'name' => $player->getName(),
-        ];
     }
 }

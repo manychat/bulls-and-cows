@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Psr\Container\ContainerInterface;
 use Src\Http\Action;
+use Src\Http\Validator\Validator;
 use Src\Model\Player\UseCase\Register\Handler;
 
 return [
@@ -16,6 +17,7 @@ return [
     Action\InitAction::class => function (ContainerInterface $container): Action\InitAction {
         return new Action\InitAction(
             $container->get(Handler::class),
+            $container->get(Validator::class),
         );
     },
 

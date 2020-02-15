@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Doctrine\Common\Annotations\AnnotationRegistry;
+use Src\Http\Validator\Validator;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Log\LoggerInterface;
@@ -13,6 +15,8 @@ use Src\Http\Middleware\JsonBodyParserMiddleware;
 use Src\Http\Middleware\ValidationExceptionMiddleware;
 use Src\Infrastructure\Framework\ErrorHandler\LogHandler;
 use Slim\Error\Renderers\PlainTextErrorRenderer;
+use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 return [
     ResponseFactoryInterface::class => function () {
@@ -48,5 +52,19 @@ return [
 
     JsonBodyParserMiddleware::class => function (): JsonBodyParserMiddleware {
         return new JsonBodyParserMiddleware();
+    },
+
+    ValidatorInterface::class => function (): ValidatorInterface {
+        AnnotationRegistry::registerLoader('class_exists');
+
+        return Validation::createValidatorBuilder()
+            ->enableAnnotationMapping()
+            ->getValidator();
+    },
+
+    Validator::class => function (ContainerInterface $container) {
+        return new Validator(
+            $container->get(ValidatorInterface::class)
+        );
     },
 ];

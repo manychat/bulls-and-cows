@@ -20,7 +20,7 @@ final class ValidationExceptionMiddleware implements MiddlewareInterface
         } catch (ValidationException $e) {
             return new JsonResponse(
                 [
-                    'errors' => $e->getErrors(),
+                    'errors' => $e->getErrors()->toArray(),
                 ], 400
             );
         }
