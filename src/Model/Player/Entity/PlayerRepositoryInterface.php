@@ -8,5 +8,7 @@ interface PlayerRepositoryInterface
 {
     public function findBySubscriberId(int $subscriberId): ?Player;
 
+    public function getBySubscriberId(int $subscriberId): Player;
+
     public function add(Player $player): void;
 }

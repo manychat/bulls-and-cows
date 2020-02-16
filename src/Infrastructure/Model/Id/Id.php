@@ -12,10 +12,10 @@ final class Id
 {
     private string $id;
 
-    public function __construct(string $id)
+    public function __construct(string $idRaw)
     {
-        Assert::notEmpty($id);
-        $this->id = $id;
+        $this->id = trim($idRaw);
+        Assert::notEmpty($this->id);
     }
 
     /**

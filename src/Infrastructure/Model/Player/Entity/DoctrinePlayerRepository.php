@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Src\Infrastructure\Model\Player\Entity;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Src\Infrastructure\Exception\EntityNotFoundException;
 use Src\Model\Player\Entity\Player;
 use Src\Model\Player\Entity\PlayerRepositoryInterface;
 
@@ -28,6 +29,16 @@ final class DoctrinePlayerRepository implements PlayerRepositoryInterface
                 'subscriberId' => $subscriberId,
             ]
         );
+
+        return $player;
+    }
+
+    public function getBySubscriberId(int $subscriberId): Player
+    {
+        $player = $this->findBySubscriberId($subscriberId);
+        if (null === $player) {
+            throw new EntityNotFoundException('Player not found.');
+        }
 
         return $player;
     }

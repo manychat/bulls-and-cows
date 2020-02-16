@@ -8,6 +8,8 @@ use Doctrine\ORM\Tools\Setup;
 use Psr\Container\ContainerInterface;
 use Doctrine\DBAL;
 use Src\Infrastructure\Doctrine\Type\Id\IdType;
+use Src\Infrastructure\Doctrine\Type\Level\LevelType;
+use Src\Infrastructure\Doctrine\Type\Number\NumberType;
 
 return [
     EntityManagerInterface::class => function (ContainerInterface $container): EntityManager {
@@ -38,12 +40,15 @@ return [
             'cache_dir' => ROOT_DIR . '/var/cache/doctrine',
             'metadata_dirs' => [
                 ROOT_DIR . '/src/Model/Player/Entity',
+                ROOT_DIR . '/src/Model/Game/Entity',
             ],
             'connection' => [
                 'url' => getenv('DB_URL'),
             ],
             'types' => [
                 IdType::NAME => IdType::class,
+                LevelType::NAME => LevelType::class,
+                NumberType::NAME => NumberType::class,
             ],
         ],
     ],

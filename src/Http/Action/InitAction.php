@@ -27,13 +27,13 @@ final class InitAction implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $command = $this->deserialize($request);
+        $parsedRequest = $this->deserialize($request);
 
-        if ($errors = $this->validator->validate($command)) {
+        if ($errors = $this->validator->validate($parsedRequest)) {
             throw new ValidationException($errors);
         }
 
-        $this->handler->handle($command);
+        $this->handler->handle($parsedRequest);
 
         return new JsonResponse([]);
     }

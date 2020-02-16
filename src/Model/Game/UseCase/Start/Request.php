@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Src\Model\Player\UseCase\Register;
+namespace Src\Model\Game\UseCase\Start;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -20,11 +20,11 @@ final class Request
      * @Assert\NotBlank()
      * @Assert\Type("string")
      */
-    public $name;
+    public $level;
 
     public function __construct(array $body)
     {
         $this->subscriberId = $body['id'] ?? '';
-        $this->name = $body['name'] ?? '';
+        $this->level = $body['level'] ?? '';
     }
 }
