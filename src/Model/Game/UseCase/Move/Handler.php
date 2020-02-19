@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Src\Model\Game\UseCase\Start;
+namespace Src\Model\Game\UseCase\Move;
 
 use Src\Infrastructure\Model\Id\Id;
 use Src\Model\FlusherInterface;
-use Src\Model\Game\Entity\Game\Game;
 use Src\Model\Game\Entity\Game\GameRepositoryInterface;
-use Src\Model\Game\Entity\Game\Level;
+use Src\Model\Game\Entity\Game\Result;
+use Src\Model\Game\Entity\Move\Move;
+use Src\Model\Game\Entity\Move\MoveRepositoryInterface;
 use Src\Model\Game\Entity\Number;
 use Src\Model\Player\Entity\PlayerRepositoryInterface;
 
@@ -18,29 +19,33 @@ final class Handler
 
     private GameRepositoryInterface $games;
 
+    private MoveRepositoryInterface $moves;
+
     private FlusherInterface $flusher;
 
     public function __construct(
         PlayerRepositoryInterface $players,
         GameRepositoryInterface $games,
+        MoveRepositoryInterface $moves,
         FlusherInterface $flusher
     ) {
         $this->players = $players;
         $this->games = $games;
+        $this->moves = $moves;
         $this->flusher = $flusher;
     }
 
-    public function handle(Request $request): void
+    public function handle(Request $request): Result
     {
         $player = $this->players->getBySubscriberId($request->subscriberId);
-        $game = $this->games->findNewByPlayerId($player->getId());
+        $game = $this->games->getNewByPlayerId($player->getId());
+        $move = new Move(Id::next(), $game, new Number($request->number));
+        $result = $game->getNumber()->compare($move->getNumber());
 
-        if (null === $game) {
-            $game = new Game(Id::next(), $player, new Level($request->level), Number::generate());
+        $this->moves->add($move);
 
-            $this->games->add($game);
+        $this->flusher->flush($game);
 
-            $this->flusher->flush($game);
-        }
+        return $result;
     }
 }

@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Src\Model\Game\Entity;
+namespace Src\Model\Game\Entity\Game;
 
 use DateTimeImmutable;
 use Src\Infrastructure\Model\Id\Id;
 use Doctrine\ORM\Mapping as ORM;
+use Src\Model\Game\Entity\Number;
 use Src\Model\Player\Entity\Player;
 
 /**

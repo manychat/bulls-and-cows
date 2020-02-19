@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Src\Model\Game\Entity;
 
+use Src\Model\Game\Entity\Game\Result;
 use Webmozart\Assert\Assert;
 
 final class Number
@@ -22,13 +23,16 @@ final class Number
 
     public static function generate(): self
     {
+//        implode('', array_rand(range(0,9), self::LENGTH));
         $numbers = [];
         while (\count($numbers) < self::LENGTH) {
-            $randomInt = random_int(0, 9);
-            if ((0 === \count($numbers) && 0 === $randomInt) || \in_array($randomInt, $numbers, true)) {
+            $randomNumber = random_int(0, 9);
+            $isFirstNumberZero = 0 === \count($numbers) && 0 === $randomNumber;
+            $numberAlreadyExists = \in_array($randomNumber, $numbers, true);
+            if ($isFirstNumberZero || $numberAlreadyExists) {
                 continue;
             }
-            $numbers[] = $randomInt;
+            $numbers[] = $randomNumber;
         }
 
         $number = (int)implode('', $numbers);
@@ -44,5 +48,22 @@ final class Number
     public function __toString(): string
     {
         return (string)$this->number;
+    }
+
+    public function compare(Number $number): Result
+    {
+        $answer = (string)$this;
+        $guess = (string)$number;
+        $bulls = $cows = 0;
+
+        foreach (range(0, self::LENGTH - 1) as $i) {
+            if ($answer[$i] === $guess[$i]) {
+                $bulls++;
+            } elseif (false !== strpos($guess, $answer[$i])) {
+                $cows++;
+            }
+        }
+
+        return new Result($bulls, $cows);
     }
 }

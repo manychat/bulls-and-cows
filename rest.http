@@ -24,6 +24,11 @@ Content-Type: application/json
 POST https://localhost:8081/game-move
 Content-Type: application/json
 
+{
+  "id": 1,
+  "number": 8465
+}
+
 ### Scores
 GET https://localhost:8081/scores
 Content-Type: application/json

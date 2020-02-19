@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Src\Model\Game\Entity;
+namespace Src\Model\Game\Entity\Game;
 
 use Webmozart\Assert\Assert;
 

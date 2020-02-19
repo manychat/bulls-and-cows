@@ -6,7 +6,7 @@ namespace Src\Infrastructure\Doctrine\Type\Level;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
-use Src\Model\Game\Entity\Level;
+use Src\Model\Game\Entity\Game\Level;
 
 final class LevelType extends Type
 {

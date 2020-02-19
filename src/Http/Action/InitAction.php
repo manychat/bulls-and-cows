@@ -40,7 +40,7 @@ final class InitAction implements RequestHandlerInterface
 
     private function deserialize(ServerRequestInterface $request): Request
     {
-        $body = $request->getParsedBody();
+        $body = $request->getParsedBody() ?? [];
 
         return new Request($body);
     }

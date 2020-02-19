@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Src\Infrastructure\Model\Game\Entity;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Src\Infrastructure\Exception\EntityNotFoundException;
 use Src\Infrastructure\Model\Id\Id;
-use Src\Model\Game\Entity\Game;
-use Src\Model\Game\Entity\GameRepositoryInterface;
+use Src\Model\Game\Entity\Game\Game;
+use Src\Model\Game\Entity\Game\GameRepositoryInterface;
 
 final class DoctrineGameRepository implements GameRepositoryInterface
 {
@@ -30,6 +31,16 @@ final class DoctrineGameRepository implements GameRepositoryInterface
                 'result' => null,
             ]
         );
+
+        return $game;
+    }
+
+    public function getNewByPlayerId(Id $playerId): Game
+    {
+        $game = $this->findNewByPlayerId($playerId);
+        if (null === $game) {
+            throw new EntityNotFoundException('Game not found.');
+        }
 
         return $game;
     }

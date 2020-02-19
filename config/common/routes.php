@@ -7,6 +7,7 @@ use Src\Http\Action;
 use Src\Http\Validator\Validator;
 use Src\Model\Player\UseCase\Register\Handler as PlayerHandler;
 use Src\Model\Game\UseCase\Start\Handler as GameHandler;
+use Src\Model\Game\UseCase\Move\Handler as MoveHandler;
 
 return [
     Action\HomeAction::class => function (): Action\HomeAction {
@@ -29,8 +30,11 @@ return [
         );
     },
 
-    Action\GameMoveAction::class => function (): Action\GameMoveAction {
-        return new Action\GameMoveAction();
+    Action\GameMoveAction::class => function (ContainerInterface $container): Action\GameMoveAction {
+        return new Action\GameMoveAction(
+            $container->get(MoveHandler::class),
+            $container->get(Validator::class),
+        );
     },
 
     Action\ScoresAction::class => function (): Action\ScoresAction {

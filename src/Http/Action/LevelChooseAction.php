@@ -34,14 +34,13 @@ final class LevelChooseAction implements RequestHandlerInterface
         }
 
         $this->handler->handle($parsedRequest);
-        $this->handler->handle($parsedRequest);
 
         return new JsonResponse([]);
     }
 
     private function deserialize(ServerRequestInterface $request): Request
     {
-        $body = $request->getParsedBody();
+        $body = $request->getParsedBody() ?? [];
 
         return new Request($body);
     }
