@@ -9,7 +9,7 @@ use Src\Model\FlusherInterface;
 use Src\Model\Game\Entity\Game\Game;
 use Src\Model\Game\Entity\Game\GameRepositoryInterface;
 use Src\Model\Game\Entity\Game\Level;
-use Src\Model\Game\Entity\Number;
+use Src\Model\Game\Entity\Figures;
 use Src\Model\Player\Entity\PlayerRepositoryInterface;
 
 final class Handler
@@ -36,7 +36,7 @@ final class Handler
         $game = $this->games->findNewByPlayerId($player->getId());
 
         if (null === $game) {
-            $game = new Game(Id::next(), $player, new Level($request->level), Number::generate());
+            $game = new Game(Id::next(), $player, new Level($request->level), Figures::generate());
 
             $this->games->add($game);
 

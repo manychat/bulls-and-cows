@@ -20,11 +20,11 @@ final class Request
      * @Assert\NotBlank()
      * @Assert\Positive()
      */
-    public $number;
+    public $figures;
 
     public function __construct(array $body)
     {
         $this->subscriberId = $body['id'] ?? '';
-        $this->number = $body['number'] ?? '';
+        $this->figures = $body['figures'] ?? '';
     }
 }

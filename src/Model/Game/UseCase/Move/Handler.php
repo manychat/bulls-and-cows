@@ -10,7 +10,7 @@ use Src\Model\Game\Entity\Game\GameRepositoryInterface;
 use Src\Model\Game\Entity\Game\Result;
 use Src\Model\Game\Entity\Move\Move;
 use Src\Model\Game\Entity\Move\MoveRepositoryInterface;
-use Src\Model\Game\Entity\Number;
+use Src\Model\Game\Entity\Figures;
 use Src\Model\Player\Entity\PlayerRepositoryInterface;
 
 final class Handler
@@ -39,8 +39,8 @@ final class Handler
     {
         $player = $this->players->getBySubscriberId($request->subscriberId);
         $game = $this->games->getNewByPlayerId($player->getId());
-        $move = new Move(Id::next(), $game, new Number($request->number));
-        $result = $game->getNumber()->compare($move->getNumber());
+        $move = new Move(Id::next(), $game, new Figures($request->figures));
+        $result = $game->getFigures()->compare($move->getFigures());
 
         $this->moves->add($move);
 

@@ -7,7 +7,7 @@ namespace Src\Model\Game\Entity\Game;
 use DateTimeImmutable;
 use Src\Infrastructure\Model\Id\Id;
 use Doctrine\ORM\Mapping as ORM;
-use Src\Model\Game\Entity\Number;
+use Src\Model\Game\Entity\Figures;
 use Src\Model\Player\Entity\Player;
 
 /**
@@ -37,10 +37,10 @@ final class Game
     private $level;
 
     /**
-     * @var Number
-     * @ORM\Column(type="number")
+     * @var Figures
+     * @ORM\Column(type="figures")
      */
-    private $number;
+    private $figures;
 
     /**
      * @var bool
@@ -54,12 +54,12 @@ final class Game
      */
     private $createdAt;
 
-    public function __construct(Id $id, Player $player, Level $level, Number $number)
+    public function __construct(Id $id, Player $player, Level $level, Figures $figures)
     {
         $this->id = $id;
         $this->player = $player;
         $this->level = $level;
-        $this->number = $number;
+        $this->figures = $figures;
         $this->createdAt = new DateTimeImmutable();
     }
 
@@ -78,9 +78,9 @@ final class Game
         return $this->level;
     }
 
-    public function getNumber(): Number
+    public function getFigures(): Figures
     {
-        return $this->number;
+        return $this->figures;
     }
 
     public function isResult(): bool

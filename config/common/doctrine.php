@@ -7,9 +7,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Setup;
 use Psr\Container\ContainerInterface;
 use Doctrine\DBAL;
-use Src\Infrastructure\Doctrine\Type\Id\IdType;
-use Src\Infrastructure\Doctrine\Type\Level\LevelType;
-use Src\Infrastructure\Doctrine\Type\Number\NumberType;
+use Src\Infrastructure\Doctrine\Type\IdType;
+use Src\Infrastructure\Doctrine\Type\LevelType;
+use Src\Infrastructure\Doctrine\Type\FiguresType;
 
 return [
     EntityManagerInterface::class => function (ContainerInterface $container): EntityManager {
@@ -48,7 +48,7 @@ return [
             'types' => [
                 IdType::NAME => IdType::class,
                 LevelType::NAME => LevelType::class,
-                NumberType::NAME => NumberType::class,
+                FiguresType::NAME => FiguresType::class,
             ],
         ],
     ],

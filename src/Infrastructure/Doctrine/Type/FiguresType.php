@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Src\Infrastructure\Doctrine\Type\Number;
+namespace Src\Infrastructure\Doctrine\Type;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\SmallIntType;
-use Src\Model\Game\Entity\Number;
+use Src\Model\Game\Entity\Figures;
 
-final class NumberType extends SmallIntType
+final class FiguresType extends SmallIntType
 {
-    public const NAME = 'number';
+    public const NAME = 'figures';
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        return $value instanceof Number ? $value->getNumber() : $value;
+        return $value instanceof Figures ? $value->getFigures() : $value;
     }
 
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
-        return empty($value) ? null : new Number($value);
+        return empty($value) ? null : new Figures($value);
     }
 
     public function getName(): string

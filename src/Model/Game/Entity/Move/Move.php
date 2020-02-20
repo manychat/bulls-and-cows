@@ -8,7 +8,7 @@ use DateTimeImmutable;
 use Src\Infrastructure\Model\Id\Id;
 use Doctrine\ORM\Mapping as ORM;
 use Src\Model\Game\Entity\Game\Game;
-use Src\Model\Game\Entity\Number;
+use Src\Model\Game\Entity\Figures;
 
 /**
  * @ORM\Entity
@@ -31,10 +31,10 @@ final class Move
     private $game;
 
     /**
-     * @var Number
-     * @ORM\Column(type="number")
+     * @var Figures
+     * @ORM\Column(type="figures")
      */
-    private $number;
+    private $figures;
 
     /**
      * @var int
@@ -54,12 +54,12 @@ final class Move
      */
     private $createdAt;
 
-    public function __construct(Id $id, Game $game, Number $number)
+    public function __construct(Id $id, Game $game, Figures $figures)
     {
         $this->id = $id;
         $this->game = $game;
-        $this->number = $number;
-        $result = $game->getNumber()->compare($number);
+        $this->figures = $figures;
+        $result = $game->getFigures()->compare($figures);
         $this->bulls = $result->getBulls();
         $this->cows = $result->getCows();
         $this->createdAt = new DateTimeImmutable();
@@ -70,9 +70,9 @@ final class Move
         return $this->id;
     }
 
-    public function getNumber(): Number
+    public function getFigures(): Figures
     {
-        return $this->number;
+        return $this->figures;
     }
 
     public function getBulls(): int
