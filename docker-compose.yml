@@ -8,8 +8,7 @@ services:
     volumes:
       - ./:/var/www
     ports:
-      - "443:443"
-      - "8080:80"
+      - "8080:443"
     depends_on:
       - php-fpm
       - db
