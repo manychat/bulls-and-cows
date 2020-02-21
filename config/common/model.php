@@ -8,14 +8,17 @@ use Src\Infrastructure\Model\Game\Entity\DoctrineGameRepository;
 use Src\Infrastructure\Model\Game\Entity\DoctrineMoveRepository;
 use Src\Infrastructure\Model\Player\Entity\DoctrinePlayerRepository;
 use Src\Infrastructure\Doctrine\DoctrineFlusher;
+use Src\Infrastructure\Model\Score\Entity\DoctrineScoreRepository;
 use Src\Model\FlusherInterface;
 use Src\Model\Game\Entity\Game\GameRepositoryInterface;
 use Src\Model\Game\Entity\Game\RulesDto;
 use Src\Model\Game\Entity\Move\MoveRepositoryInterface;
+use Src\Model\Game\Entity\Score\ScoreRepositoryInterface;
 use Src\Model\Player\Entity\PlayerRepositoryInterface;
 use Src\Model\Player\UseCase\Register\Handler as PlayerHandler;
 use Src\Model\Game\UseCase\Start\Handler as GameHandler;
 use Src\Model\Game\UseCase\Move\Handler as MoveHandler;
+use Src\Model\Game\UseCase\Score\Handler as ScoreHandler;
 
 return [
     FlusherInterface::class => function (ContainerInterface $container): FlusherInterface {
@@ -76,6 +79,16 @@ return [
             $container->get(MoveRepositoryInterface::class),
             $container->get(FlusherInterface::class),
             $container->get(RulesDto::class),
+        );
+    },
+
+    ScoreRepositoryInterface::class => function (ContainerInterface $container): ScoreRepositoryInterface {
+        return new DoctrineScoreRepository($container->get(EntityManagerInterface::class),);
+    },
+
+    ScoreHandler::class => function (ContainerInterface $container): ScoreHandler {
+        return new ScoreHandler(
+            $container->get(ScoreRepositoryInterface::class),
         );
     },
 

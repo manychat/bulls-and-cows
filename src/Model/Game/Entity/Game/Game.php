@@ -114,7 +114,14 @@ final class Game
 
     public function finishMove(bool $isVictory): void
     {
+        $this->getCountMove();
+        if ($isVictory) {
+            $this->result = $isVictory;
+        }
+    }
+
+    public function getCountMove(): void
+    {
         $this->movesCount++;
-        $this->result = $isVictory;
     }
 }

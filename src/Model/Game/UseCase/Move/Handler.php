@@ -53,11 +53,11 @@ final class Handler
 
         $result = $game->getFigures()->compare($move->getFigures());
         $game->finishMove($result->isVictory());
-        $result->setMovesLeft($game->getRemainingNumberOfMoves($this->rules));
 
         $this->moves->add($move);
-
         $this->flusher->flush($move, $game);
+
+        $result->setMovesLeft($game->getRemainingNumberOfMoves($this->rules));
 
         return $result;
     }
