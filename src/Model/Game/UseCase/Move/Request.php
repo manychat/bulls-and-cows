@@ -24,7 +24,7 @@ final class Request
 
     public function __construct(array $body)
     {
-        $this->subscriberId = $body['id'] ?? '';
-        $this->figures = $body['figures'] ?? '';
+        $this->subscriberId = (int)($body['id'] ?? 0);
+        $this->figures = (int)($body['figures'] ?? 0);
     }
 }
