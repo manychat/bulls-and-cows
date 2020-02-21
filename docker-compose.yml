@@ -7,8 +7,9 @@ services:
       dockerfile: nginx.docker
     volumes:
       - ./:/var/www
-    ports:	
+    ports:
       - "443:443"
+      - "8080:80"
     depends_on:
       - php-fpm
       - db
