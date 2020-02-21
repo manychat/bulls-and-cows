@@ -10,6 +10,7 @@ use Src\Infrastructure\Model\Player\Entity\DoctrinePlayerRepository;
 use Src\Infrastructure\Doctrine\DoctrineFlusher;
 use Src\Model\FlusherInterface;
 use Src\Model\Game\Entity\Game\GameRepositoryInterface;
+use Src\Model\Game\Entity\Game\RulesDto;
 use Src\Model\Game\Entity\Move\MoveRepositoryInterface;
 use Src\Model\Player\Entity\PlayerRepositoryInterface;
 use Src\Model\Player\UseCase\Register\Handler as PlayerHandler;
@@ -56,12 +57,37 @@ return [
         );
     },
 
+    RulesDto::class => function (ContainerInterface $container): RulesDto {
+        $config = $container->get('config')['game']['rules'];
+
+        return new RulesDto(
+            $config['max_moves_count_for_hard_level'],
+            $config['points_for_hard_victory'],
+            $config['points_for_hard_losing'],
+            $config['points_for_easy_victory'],
+            $config['points_for_easy_losing'],
+        );
+    },
+
     MoveHandler::class => function (ContainerInterface $container): MoveHandler {
         return new MoveHandler(
             $container->get(PlayerRepositoryInterface::class),
             $container->get(GameRepositoryInterface::class),
             $container->get(MoveRepositoryInterface::class),
             $container->get(FlusherInterface::class),
+            $container->get(RulesDto::class),
         );
     },
+
+    'config' => [
+        'game' => [
+            'rules' => [
+                'max_moves_count_for_hard_level' => 10,
+                'points_for_hard_victory' => 3,
+                'points_for_hard_losing' => 1,
+                'points_for_easy_victory' => 2,
+                'points_for_easy_losing' => 1,
+            ],
+        ],
+    ],
 ];

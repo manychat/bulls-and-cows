@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace Src\Model\Game\Entity\Game;
 
+use Src\Model\Game\Entity\Figures;
+
 final class Result
 {
     private int $bulls;
 
     private int $cows;
+
+    private ?int $movesLeft;
 
     public function __construct(int $bulls, int $cows)
     {
@@ -26,11 +30,28 @@ final class Result
         return $this->cows;
     }
 
+    public function setMovesLeft(?int $movesLeft): void
+    {
+        $this->movesLeft = $movesLeft;
+    }
+
+    public function getMovesLeft(): ?int
+    {
+        return $this->movesLeft;
+    }
+
+    public function isVictory(): bool
+    {
+        return Figures::LENGTH === $this->getBulls();
+    }
+
     public function toArray(): array
     {
         return [
+            'is_victory' => $this->isVictory(),
             'bulls' => $this->getBulls(),
             'cows' => $this->getCows(),
+            'moves_left' => $this->getMovesLeft(),
         ];
     }
 }

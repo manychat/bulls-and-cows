@@ -9,7 +9,7 @@ use Webmozart\Assert\Assert;
 
 final class Figures
 {
-    private const LENGTH = 4;
+    public const LENGTH = 4;
 
     private int $figures;
 
@@ -17,7 +17,7 @@ final class Figures
     {
         $figuresString = (string)$figuresRaw;
         $length = \count(array_unique(str_split($figuresString)));
-        Assert::eq($length, self::LENGTH);
+        Assert::eq($length, self::LENGTH, 'The number must consist of 4 unique figures');
         $this->figures = $figuresRaw;
     }
 

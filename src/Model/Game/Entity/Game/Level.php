@@ -29,4 +29,9 @@ final class Level
     {
         return $this->level;
     }
+
+    public function isHard(): bool
+    {
+        return self::HARD === $this->getLevel();
+    }
 }

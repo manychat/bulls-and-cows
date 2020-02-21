@@ -1,9 +1,9 @@
 ### Main page
-GET https://localhost:8081
+GET http://localhost
 Content-Type: application/json
 
 ### Init
-POST https://localhost:8081/init
+POST http://localhost/init
 Content-Type: application/json
 
 {
@@ -12,7 +12,7 @@ Content-Type: application/json
 }
 
 ### Level choose
-POST https://localhost:8081/level-choose
+POST http://localhost/level-choose
 Content-Type: application/json
 
 {
@@ -21,16 +21,16 @@ Content-Type: application/json
 }
 
 ### Gamoe move
-POST https://localhost:8081/game-move
+POST http://localhost/game-move
 Content-Type: application/json
 
 {
   "id": 1,
-  "figures": 8465
+  "figures": 8937
 }
 
 ### Scores
-GET https://localhost:8081/scores
+GET http://localhost/scores
 Content-Type: application/json
 
 ###

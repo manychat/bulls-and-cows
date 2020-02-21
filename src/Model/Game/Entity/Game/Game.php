@@ -49,6 +49,12 @@ final class Game
     private $result;
 
     /**
+     * @var int
+     * @ORM\Column(type="smallint", name="moves_count")
+     */
+    private $movesCount;
+
+    /**
      * @var DateTimeImmutable
      * @ORM\Column(type="datetime_immutable", name="create_at")
      */
@@ -60,6 +66,7 @@ final class Game
         $this->player = $player;
         $this->level = $level;
         $this->figures = $figures;
+        $this->movesCount = 0;
         $this->createdAt = new DateTimeImmutable();
     }
 
@@ -86,5 +93,28 @@ final class Game
     public function isResult(): bool
     {
         return $this->result;
+    }
+
+    public function getMovesCount(): int
+    {
+        return $this->movesCount;
+    }
+
+    public function getRemainingNumberOfMoves(RulesDto $rules): ?int
+    {
+        return $this->getLevel()->isHard()
+            ? $rules->getMaxMovesCountForHardLevel() - $this->getMovesCount()
+            : null;
+    }
+
+    public function isMovesLimitReached(RulesDto $rules): bool
+    {
+        return $this->getLevel()->isHard() && $this->getMovesCount() >= $rules->getMaxMovesCountForHardLevel();
+    }
+
+    public function finishMove(bool $isVictory): void
+    {
+        $this->movesCount++;
+        $this->result = $isVictory;
     }
 }
