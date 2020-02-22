@@ -124,4 +124,9 @@ final class Game
     {
         $this->movesCount++;
     }
+
+    public function loose(): void
+    {
+        $this->result = false;
+    }
 }

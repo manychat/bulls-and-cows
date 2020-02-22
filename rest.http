@@ -29,6 +29,14 @@ Content-Type: application/json
   "figures": 8937
 }
 
+### Gamoe stop
+POST http://localhost/game-stop
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
 ### Scores
 GET http://localhost/scores
 Content-Type: application/json

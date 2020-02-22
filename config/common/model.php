@@ -19,6 +19,7 @@ use Src\Model\Player\UseCase\Register\Handler as PlayerHandler;
 use Src\Model\Game\UseCase\Start\Handler as GameHandler;
 use Src\Model\Game\UseCase\Move\Handler as MoveHandler;
 use Src\Model\Game\UseCase\Score\Handler as ScoreHandler;
+use Src\Model\Game\UseCase\Stop\Handler as StopHandler;
 
 return [
     FlusherInterface::class => function (ContainerInterface $container): FlusherInterface {
@@ -89,6 +90,14 @@ return [
     ScoreHandler::class => function (ContainerInterface $container): ScoreHandler {
         return new ScoreHandler(
             $container->get(ScoreRepositoryInterface::class),
+        );
+    },
+
+    StopHandler::class => function (ContainerInterface $container): StopHandler {
+        return new StopHandler(
+            $container->get(PlayerRepositoryInterface::class),
+            $container->get(GameRepositoryInterface::class),
+            $container->get(FlusherInterface::class),
         );
     },
 

@@ -18,6 +18,8 @@ final class RoutesBuilder extends AbstractBuilder
 
         $this->getApp()->post('/game-move', Action\GameMoveAction::class . '::handle');
 
+        $this->getApp()->post('/game-stop', Action\GameStopAction::class . '::handle');
+
         $this->getApp()->get('/scores', Action\ScoresAction::class . '::handle');
     }
 }
