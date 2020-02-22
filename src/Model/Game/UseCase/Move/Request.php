@@ -19,6 +19,7 @@ final class Request
      * @var int
      * @Assert\NotBlank()
      * @Assert\Positive()
+     * @Assert\Range(min="1023", max="9876", notInRangeMessage="Only 4 unique digits")
      */
     public $figures;
 

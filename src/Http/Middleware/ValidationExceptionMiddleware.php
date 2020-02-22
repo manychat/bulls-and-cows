@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Src\Http\Middleware;
 
+use InvalidArgumentException;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -21,10 +22,10 @@ final class ValidationExceptionMiddleware implements MiddlewareInterface
         } catch (ValidationException $e) {
             return new JsonResponse(
                 [
-                    'errors' => $e->getErrors()->toArray(),
+                    'errors' => implode('; ', $e->getErrors()->toArray()),
                 ], 200
             );
-        } catch (CommonRuntimeException $e) {
+        } catch (CommonRuntimeException|InvalidArgumentException $e) {
             return new JsonResponse(
                 [
                     'errors' => $e->getMessage(),
