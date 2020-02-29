@@ -6,7 +6,7 @@ namespace Src\Infrastructure\Model\Game\Entity;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Src\Infrastructure\Exception\EntityNotFoundException;
-use Src\Infrastructure\Model\Id\Id;
+use Src\Model\Common\Entity\Id\Id;
 use Src\Model\Game\Entity\Game\Game;
 use Src\Model\Game\Entity\Game\GameRepositoryInterface;
 

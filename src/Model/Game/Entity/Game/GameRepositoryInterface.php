@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Src\Model\Game\Entity\Game;
 
-use Src\Infrastructure\Model\Id\Id;
+use Src\Model\Common\Entity\Id\Id;
 
 interface GameRepositoryInterface
 {

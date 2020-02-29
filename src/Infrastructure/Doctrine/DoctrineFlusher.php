@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Src\Infrastructure\Doctrine;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Src\Model\FlusherInterface;
+use Src\Model\Common\FlusherInterface;
 
 final class DoctrineFlusher implements FlusherInterface
 {

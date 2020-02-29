@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Src\Infrastructure\Model\Id;
+namespace Src\Model\Common\Entity\Id;
 
 use Exception;
 use Ramsey\Uuid\Uuid;

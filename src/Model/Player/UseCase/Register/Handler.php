@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Src\Model\Player\UseCase\Register;
 
-use Src\Infrastructure\Model\Id\Id;
-use Src\Model\FlusherInterface;
+use Src\Model\Common\Entity\Id\Id;
+use Src\Model\Common\FlusherInterface;
 use Src\Model\Player\Entity\Player;
 use Src\Model\Player\Entity\PlayerRepositoryInterface;
 

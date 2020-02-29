@@ -9,7 +9,7 @@ use Src\Infrastructure\Model\Game\Entity\DoctrineMoveRepository;
 use Src\Infrastructure\Model\Player\Entity\DoctrinePlayerRepository;
 use Src\Infrastructure\Doctrine\DoctrineFlusher;
 use Src\Infrastructure\Model\Score\Entity\DoctrineScoreRepository;
-use Src\Model\FlusherInterface;
+use Src\Model\Common\FlusherInterface;
 use Src\Model\Game\Entity\Game\GameRepositoryInterface;
 use Src\Model\Game\Entity\Game\RulesDto;
 use Src\Model\Game\Entity\Move\MoveRepositoryInterface;

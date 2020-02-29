@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Src\Model\Game\Entity\Game;
 
-use Src\Model\Game\Entity\Figures;
+use Src\Model\Game\Entity\Common\Figures;
 
 final class Result
 {

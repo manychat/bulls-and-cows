@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Src\Model;
+namespace Src\Model\Common;
 
 interface FlusherInterface
 {

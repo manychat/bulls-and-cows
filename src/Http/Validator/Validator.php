@@ -15,7 +15,7 @@ final class Validator
         $this->validator = $validator;
     }
 
-    public function validate($object): ?Errors
+    public function validate(object $object): ?Errors
     {
         $violations = $this->validator->validate($object);
         if ($violations->count() > 0) {

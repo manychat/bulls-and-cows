@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Src\Model\Game\Entity\Game;
 
 use DateTimeImmutable;
-use Src\Infrastructure\Model\Id\Id;
+use Src\Model\Common\Entity\Id\Id;
 use Doctrine\ORM\Mapping as ORM;
-use Src\Model\Game\Entity\Figures;
+use Src\Model\Game\Entity\Common\Figures;
 use Src\Model\Player\Entity\Player;
 
 /**

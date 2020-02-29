@@ -6,7 +6,7 @@ namespace Src\Infrastructure\Doctrine\Type;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\SmallIntType;
-use Src\Model\Game\Entity\Figures;
+use Src\Model\Game\Entity\Common\Figures;
 
 final class FiguresType extends SmallIntType
 {

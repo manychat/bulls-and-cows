@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Src\Model\Player\Entity;
 
 use DateTimeImmutable;
-use Src\Infrastructure\Model\Id\Id;
+use Src\Model\Common\Entity\Id\Id;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

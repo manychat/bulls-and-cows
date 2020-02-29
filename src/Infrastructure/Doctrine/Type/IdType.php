@@ -6,7 +6,7 @@ namespace Src\Infrastructure\Doctrine\Type;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\GuidType;
-use Src\Infrastructure\Model\Id\Id;
+use Src\Model\Common\Entity\Id\Id;
 
 final class IdType extends GuidType
 {

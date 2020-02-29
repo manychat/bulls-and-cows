@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Src\Model\Game\UseCase\Stop;
 
-use Src\Model\FlusherInterface;
+use Src\Model\Common\FlusherInterface;
 use Src\Model\Game\Entity\Game\GameRepositoryInterface;
 use Src\Model\Player\Entity\PlayerRepositoryInterface;
 

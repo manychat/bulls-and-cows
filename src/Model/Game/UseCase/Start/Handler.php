@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Src\Model\Game\UseCase\Start;
 
-use Src\Infrastructure\Model\Id\Id;
-use Src\Model\FlusherInterface;
+use Src\Model\Common\Entity\Id\Id;
+use Src\Model\Common\FlusherInterface;
 use Src\Model\Game\Entity\Game\Game;
 use Src\Model\Game\Entity\Game\GameRepositoryInterface;
 use Src\Model\Game\Entity\Game\Level;
-use Src\Model\Game\Entity\Figures;
+use Src\Model\Game\Entity\Common\Figures;
 use Src\Model\Player\Entity\PlayerRepositoryInterface;
 
 final class Handler
