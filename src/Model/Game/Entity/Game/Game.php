@@ -90,7 +90,7 @@ final class Game
         return $this->figures;
     }
 
-    public function isResult(): bool
+    public function getResult(): ?bool
     {
         return $this->result;
     }
