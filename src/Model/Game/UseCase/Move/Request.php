@@ -16,16 +16,14 @@ final class Request
     public $subscriberId;
 
     /**
-     * @var int
+     * @var string
      * @Assert\NotBlank()
-     * @Assert\Positive()
-     * @Assert\Range(min="1023", max="9876", notInRangeMessage="Only 4 unique digits")
      */
     public $figures;
 
     public function __construct(array $body)
     {
         $this->subscriberId = (int)($body['id'] ?? 0);
-        $this->figures = (int)($body['figures'] ?? 0);
+        $this->figures = (string)($body['figures'] ?? '');
     }
 }

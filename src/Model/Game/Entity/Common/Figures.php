@@ -11,49 +11,37 @@ final class Figures
 {
     public const LENGTH = 4;
 
-    private int $figures;
+    private string $figures;
 
-    public function __construct(int $figuresRaw)
+    public function __construct(string $figuresRaw)
     {
-        $figuresString = (string)$figuresRaw;
-        $length = \count(array_unique(str_split($figuresString)));
+        $length = \count(array_unique(str_split($figuresRaw)));
+        Assert::digits($figuresRaw, 'Only figures are allowed');
         Assert::eq($length, self::LENGTH, 'The number must consist of 4 unique figures');
         $this->figures = $figuresRaw;
     }
 
     public static function generate(): self
     {
-//        implode('', array_rand(range(0,9), self::LENGTH));
-        $figures = [];
-        while (\count($figures) < self::LENGTH) {
-            $randomFigure = random_int(0, 9);
-            $isFirstZero = 0 === \count($figures) && 0 === $randomFigure;
-            $isAlreadyExists = \in_array($randomFigure, $figures, true);
-            if ($isFirstZero || $isAlreadyExists) {
-                continue;
-            }
-            $figures[] = $randomFigure;
-        }
+        $figures = implode('', array_rand(range(0, 9), self::LENGTH));
 
-        $figure = (int)implode('', $figures);
-
-        return new static($figure);
+        return new static($figures);
     }
 
-    public function getFigures(): int
+    public function getFigures(): string
     {
         return $this->figures;
     }
 
     public function __toString(): string
     {
-        return (string)$this->figures;
+        return $this->getFigures();
     }
 
     public function compare(Figures $figures): Result
     {
-        $guess = (string)$figures;
-        $answer = (string)$this;
+        $guess = $figures->getFigures();
+        $answer = $this->getFigures();
         $bulls = $cows = 0;
 
         foreach (range(0, self::LENGTH - 1) as $i) {

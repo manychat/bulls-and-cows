@@ -22,7 +22,7 @@ final class Version20200219191610 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
-        $this->addSql('CREATE TABLE moves (id UUID NOT NULL, game_id UUID NOT NULL, figures INT NOT NULL, bulls SMALLINT NOT NULL, cows SMALLINT NOT NULL, create_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE moves (id UUID NOT NULL, game_id UUID NOT NULL, figures CHAR(4) NOT NULL, bulls SMALLINT NOT NULL, cows SMALLINT NOT NULL, create_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_453F0832E48FD905 ON moves (game_id)');
         $this->addSql('COMMENT ON COLUMN moves.id IS \'(DC2Type:id)\'');
         $this->addSql('COMMENT ON COLUMN moves.game_id IS \'(DC2Type:id)\'');

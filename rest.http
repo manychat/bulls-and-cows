@@ -26,7 +26,7 @@ Content-Type: application/json
 
 {
   "id": 1,
-  "figures": 8937
+  "figures": "0123"
 }
 
 ### Gamoe stop

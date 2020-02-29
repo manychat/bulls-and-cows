@@ -19,7 +19,7 @@ final class LevelType extends Type
         return $value instanceof Level ? $value->getLevel() : $value;
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?Level
     {
         return empty($value) ? null : new Level($value);
     }

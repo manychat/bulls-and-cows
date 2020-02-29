@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Src\Infrastructure\Doctrine\Type;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Types\SmallIntType;
+use Doctrine\DBAL\Types\Type;
 use Src\Model\Game\Entity\Common\Figures;
 
-final class FiguresType extends SmallIntType
+final class FiguresType extends Type
 {
     public const NAME = 'figures';
 
@@ -17,7 +17,7 @@ final class FiguresType extends SmallIntType
         return $value instanceof Figures ? $value->getFigures() : $value;
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?Figures
     {
         return empty($value) ? null : new Figures($value);
     }
@@ -27,11 +27,12 @@ final class FiguresType extends SmallIntType
         return self::NAME;
     }
 
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
+    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
     {
-        return $platform->getIntegerTypeDeclarationSQL([
-            'unsigned' => true
-        ]);
+        $fieldDeclaration['length'] = Figures::LENGTH;
+        $fieldDeclaration['fixed'] = true;
+
+        return $platform->getVarcharTypeDeclarationSQL($fieldDeclaration);
     }
 
     public function requiresSQLCommentHint(AbstractPlatform $platform): bool
