@@ -6,26 +6,22 @@ namespace Src\Model\Game\Entity\Score;
 
 final class Score
 {
-    private string $id;
+    private int $subscriberId;
 
     private string $name;
 
     private int $score;
 
-    public function __construct(string $id, string $name, int $score)
+    public function __construct(int $subscriberId, string $name, int $score)
     {
-        $this->id = $id;
+        $this->subscriberId = $subscriberId;
         $this->name = $name;
         $this->score = $score;
     }
 
-    public function toArray(): array
+    public function isBelongsTo(int $subscriberId): bool
     {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'score' => $this->score,
-        ];
+        return $this->subscriberId === $subscriberId;
     }
 
     public function getName(): string

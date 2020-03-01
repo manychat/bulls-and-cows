@@ -13,6 +13,7 @@ use Src\Model\Common\FlusherInterface;
 use Src\Model\Game\Entity\Game\GameRepositoryInterface;
 use Src\Model\Game\Entity\Game\RulesDto;
 use Src\Model\Game\Entity\Move\MoveRepositoryInterface;
+use Src\Model\Game\Entity\Score\ScoreBoard;
 use Src\Model\Game\Entity\Score\ScoreRepositoryInterface;
 use Src\Model\Player\Entity\PlayerRepositoryInterface;
 use Src\Model\Player\UseCase\Register\Handler as PlayerHandler;
@@ -67,9 +68,9 @@ return [
         return new RulesDto(
             $config['max_moves_count_for_hard_level'],
             $config['points_for_hard_victory'],
-            $config['points_for_hard_losing'],
             $config['points_for_easy_victory'],
-            $config['points_for_easy_losing'],
+            $config['points_for_losing'],
+            $config['score_board_size'],
         );
     },
 
@@ -84,12 +85,16 @@ return [
     },
 
     ScoreRepositoryInterface::class => function (ContainerInterface $container): ScoreRepositoryInterface {
-        return new DoctrineScoreRepository($container->get(EntityManagerInterface::class),);
+        return new DoctrineScoreRepository(
+            $container->get(EntityManagerInterface::class),
+            $container->get(RulesDto::class),
+        );
     },
 
     ScoreHandler::class => function (ContainerInterface $container): ScoreHandler {
         return new ScoreHandler(
             $container->get(ScoreRepositoryInterface::class),
+            $container->get(ScoreBoard::class),
         );
     },
 
@@ -101,14 +106,20 @@ return [
         );
     },
 
+    ScoreBoard::class => function (ContainerInterface $container): ScoreBoard {
+        return new ScoreBoard(
+            $container->get(RulesDto::class),
+        );
+    },
+
     'config' => [
         'game' => [
             'rules' => [
                 'max_moves_count_for_hard_level' => 10,
                 'points_for_hard_victory' => 3,
-                'points_for_hard_losing' => 1,
                 'points_for_easy_victory' => 2,
-                'points_for_easy_losing' => 1,
+                'points_for_losing' => 1,
+                'score_board_size' => 10,
             ],
         ],
     ],

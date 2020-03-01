@@ -38,7 +38,7 @@ Content-Type: application/json
 }
 
 ### Scores
-GET http://localhost/scores
+GET http://localhost/scores?id=2
 Content-Type: application/json
 
 ###

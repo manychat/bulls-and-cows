@@ -8,20 +8,32 @@ use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Src\Http\Validator\Validator;
+use Src\Infrastructure\Exception\ValidationException;
 use Src\Model\Game\UseCase\Score\Handler;
+use Src\Model\Game\UseCase\Score\Request;
 
 final class ScoresAction implements RequestHandlerInterface
 {
     private Handler $handler;
 
-    public function __construct(Handler $handler)
+    private Validator $validator;
+
+    public function __construct(Handler $handler, Validator $validator)
     {
         $this->handler = $handler;
+        $this->validator = $validator;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $scoreBoard = $this->handler->handle();
+        $parsedRequest = $this->deserialize($request);
+
+        if ($errors = $this->validator->validate($parsedRequest)) {
+            throw new ValidationException($errors);
+        }
+
+        $scoreBoard = $this->handler->handle($parsedRequest);
 
         return new JsonResponse(
             [
@@ -36,5 +48,12 @@ final class ScoresAction implements RequestHandlerInterface
                 ],
             ],
         );
+    }
+
+    private function deserialize(ServerRequestInterface $request): Request
+    {
+        $query = $request->getQueryParams() ?? [];
+
+        return new Request($query);
     }
 }

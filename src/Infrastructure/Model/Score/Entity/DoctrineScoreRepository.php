@@ -5,45 +5,69 @@ declare(strict_types=1);
 namespace Src\Infrastructure\Model\Score\Entity;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Src\Model\Game\Entity\Score\Score;
-use Src\Model\Game\Entity\Score\ScoreBoard;
+use Doctrine\ORM\QueryBuilder;
+use Src\Model\Game\Entity\Game\Game;
+use Src\Model\Game\Entity\Game\Level;
+use Src\Model\Game\Entity\Game\RulesDto;
 use Src\Model\Game\Entity\Score\ScoreRepositoryInterface;
 
 final class DoctrineScoreRepository implements ScoreRepositoryInterface
 {
-    private $em;
+    private EntityManagerInterface $em;
 
-    public function __construct(EntityManagerInterface $em)
+    private RulesDto $rules;
+
+    public function __construct(EntityManagerInterface $em, RulesDto $rules)
     {
         $this->em = $em;
+        $this->rules = $rules;
     }
 
-    public function getTop(): ScoreBoard
+    public function getTop(): array
     {
-        $sql = <<<SQL
-SELECT p.id,
-       p.name,
-       SUM(CASE
-               WHEN g.result = true AND g.level = 'hard' THEN 3
-               WHEN g.result = true AND g.level = 'easy' THEN 2
-               ELSE 0 END
-           ) - SUM(CASE WHEN g.result = false THEN 1 ELSE 0 END) score
-FROM games g
-         RIGHT JOIN players p ON p.id = g.player_id
-WHERE g.result IS NOT NULL
-GROUP BY p.id, p.name
-ORDER BY score DESC
-LIMIT 10;
-SQL;
+        return $this->getBaseQuery()
+            ->addOrderBy('score', 'DESC')
+            ->addOrderBy('p.createdAt', 'ASC')
+            ->setMaxResults($this->rules->getScoreBoardSize())
+            ->getQuery()->getArrayResult();
+    }
 
-        $statement = $this->em->getConnection()->prepare($sql);
-        $statement->execute();
+    private function getBaseQuery(): QueryBuilder
+    {
+        return $this->em->createQueryBuilder()
+            ->select(
+                'p.subscriberId',
+                'p.name',
+                'p.createdAt',
+                '
+SUM(CASE
+   WHEN g.result = true AND g.level = :hard THEN :hard_victory_points
+   WHEN g.result = true AND g.level = :easy THEN :easy_victory_points
+   ELSE 0 END
+) - SUM(CASE WHEN g.result = false THEN :easy_losing_points ELSE 0 END) score
+'
+            )
+            ->from(Game::class, 'g')
+            ->innerJoin('g.player', 'p')
+            ->where('g.result IS NOT NULL')
+            ->setParameters(
+                [
+                    ':easy' => Level::EASY,
+                    ':hard' => Level::HARD,
+                    ':hard_victory_points' => $this->rules->getPointsForHardVictory(),
+                    ':easy_victory_points' => $this->rules->getPointsForEasyVictory(),
+                    ':easy_losing_points' => $this->rules->getPointsForLosing(),
+                ]
+            )
+            ->groupBy('p.subscriberId, p.createdAt, p.name');
+    }
 
-        $rows = [];
-        while ($row = $statement->fetch()) {
-            $rows[] = new Score($row['id'], $row['name'], $row['score']);
-        }
-
-        return new ScoreBoard($rows);
+    public function getScore(int $subscriberId): ?array
+    {
+        return $this->getBaseQuery()
+            ->andWhere('p.subscriberId = :subscriberId')
+            ->setParameter(':subscriberId', $subscriberId)
+            ->setMaxResults(1)
+            ->getQuery()->getOneOrNullResult();
     }
 }

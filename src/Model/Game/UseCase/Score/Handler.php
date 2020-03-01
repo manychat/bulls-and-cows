@@ -11,13 +11,26 @@ final class Handler
 {
     private ScoreRepositoryInterface $scores;
 
-    public function __construct(ScoreRepositoryInterface $score)
+    private ScoreBoard $scoreBoard;
+
+    public function __construct(ScoreRepositoryInterface $score, ScoreBoard $scoreBoard)
     {
         $this->scores = $score;
+        $this->scoreBoard = $scoreBoard;
     }
 
-    public function handle(): ScoreBoard
+    public function handle(Request $request): ScoreBoard
     {
-        return $this->scores->getTop();
+        $scoresRaw = $this->scores->getTop();
+        $this->scoreBoard->addRawScores($scoresRaw);
+
+        if (
+            !$this->scoreBoard->isPLayerIn($request->subscriberId) &&
+            $score = $this->scores->getScore($request->subscriberId)
+        ) {
+            $this->scoreBoard->addRawScore($score);
+        }
+
+        return $this->scoreBoard;
     }
 }

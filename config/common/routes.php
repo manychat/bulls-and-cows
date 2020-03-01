@@ -42,6 +42,7 @@ return [
     Action\ScoresAction::class => function (ContainerInterface $container): Action\ScoresAction {
         return new Action\ScoresAction(
             $container->get(ScoreHandler::class),
+            $container->get(Validator::class),
         );
     },
 

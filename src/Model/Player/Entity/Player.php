@@ -24,7 +24,7 @@ final class Player
     private $id;
 
     /**
-     * @var string
+     * @var int
      * @ORM\Column(type="bigint", name="subscriber_id", unique=true)
      */
     private $subscriberId;

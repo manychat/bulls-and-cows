@@ -10,24 +10,24 @@ final class RulesDto
 
     private int $pointsForHardVictory;
 
-    private int $pointsForHardLosing;
-
     private int $pointsForEasyVictory;
 
-    private int $pointsForEasyLosing;
+    private int $pointsForLosing;
+
+    private int $scoreBoardSize;
 
     public function __construct(
         int $maxMovesCountForHardLevel,
         int $pointsForHardVictory,
-        int $pointsForHardLosing,
         int $pointsForEasyVictory,
-        int $pointsForEasyLosing
+        int $pointsForLosing,
+        int $scoreBoardSize
     ) {
         $this->maxMovesCountForHardLevel = $maxMovesCountForHardLevel;
         $this->pointsForHardVictory = $pointsForHardVictory;
-        $this->pointsForHardLosing = $pointsForHardLosing;
         $this->pointsForEasyVictory = $pointsForEasyVictory;
-        $this->pointsForEasyLosing = $pointsForEasyLosing;
+        $this->pointsForLosing = $pointsForLosing;
+        $this->scoreBoardSize = $scoreBoardSize;
     }
 
     public function getMaxMovesCountForHardLevel(): int
@@ -40,18 +40,18 @@ final class RulesDto
         return $this->pointsForHardVictory;
     }
 
-    public function getPointsForHardLosing(): int
-    {
-        return $this->pointsForHardLosing;
-    }
-
     public function getPointsForEasyVictory(): int
     {
         return $this->pointsForEasyVictory;
     }
 
-    public function getPointsForEasyLosing(): int
+    public function getPointsForLosing(): int
     {
-        return $this->pointsForEasyLosing;
+        return $this->pointsForLosing;
+    }
+
+    public function getScoreBoardSize(): int
+    {
+        return $this->scoreBoardSize;
     }
 }

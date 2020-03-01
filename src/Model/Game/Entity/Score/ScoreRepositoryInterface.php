@@ -6,5 +6,7 @@ namespace Src\Model\Game\Entity\Score;
 
 interface ScoreRepositoryInterface
 {
-    public function getTop(): ScoreBoard;
+    public function getScore(int $subscriberId): ?array;
+
+    public function getTop(): array;
 }

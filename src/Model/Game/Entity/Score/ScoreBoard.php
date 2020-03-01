@@ -4,36 +4,62 @@ declare(strict_types=1);
 
 namespace Src\Model\Game\Entity\Score;
 
+use Src\Model\Game\Entity\Game\RulesDto;
+
 final class ScoreBoard
 {
+    private RulesDto $rules;
+
     /**
      * @var Score[]
      */
-    private array $scores;
+    private array $scores = [];
 
-    public function __construct(array $scores)
+    public function __construct(RulesDto $rules)
     {
-        $this->scores = $scores;
+        $this->rules = $rules;
     }
 
     public function __toString(): string
     {
-        $rows = [];
+        $str = '';
+
         foreach ($this->scores as $index => $score) {
             $position = $index + 1;
-            $rows[] = "{$position}) {$score->getName()}: {$score->getScore()}";
+
+            $str .= $position > $this->rules->getScoreBoardSize()
+                ? '...' . PHP_EOL
+                : "{$position}) ";
+
+            $str .= "{$score->getName()}: {$score->getScore()}" . PHP_EOL;
         }
 
-        return implode(PHP_EOL, $rows);
+        return $str;
     }
 
-    public function toArray(): array
+    public function isPLayerIn(int $subscriberId): bool
     {
-        return array_map([$this, 'scoreToArray'], $this->scores);
+        foreach ($this->scores as $score) {
+            if ($score->isBelongsTo($subscriberId)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    private function scoreToArray(Score $score): array
+    public function addRawScores(array $scoresRaw): void
     {
-        return $score->toArray();
+        array_map([$this, 'addRawScore'], $scoresRaw);
+    }
+
+    public function addRawScore(array $scoreRaw): void
+    {
+        $this->scores[] = $this->buildScore($scoreRaw);
+    }
+
+    private function buildScore(array $scoreRaw): Score
+    {
+        return new Score((int)$scoreRaw['subscriberId'], $scoreRaw['name'], $scoreRaw['score']);
     }
 }
