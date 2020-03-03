@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Doctrine\Common\Cache\FilesystemCache;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Setup;
@@ -18,7 +19,9 @@ return [
             $params['metadata_dirs'],
             $params['dev_mode'],
             null,
-            null,
+            new FilesystemCache(
+                $params['cache_dir']
+            ),
             false
         );
 
