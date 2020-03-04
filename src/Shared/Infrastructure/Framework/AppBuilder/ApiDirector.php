@@ -6,7 +6,6 @@ namespace Src\Shared\Infrastructure\Framework\AppBuilder;
 
 use DI\Bridge\Slim\Bridge;
 use Slim\App;
-use Src\Shared\Infrastructure\Framework\AppBuilder\EnvLoader as EnvLoader;
 
 final class ApiDirector
 {

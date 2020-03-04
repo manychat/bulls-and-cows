@@ -11,6 +11,7 @@
         "laminas/laminas-diactoros": "^2.2",
         "monolog/monolog": "^2.0",
         "php-di/slim-bridge": "^3.0",
+        "phpunit/phpunit": "^9.0",
         "ramsey/uuid": "^3.9",
         "slim/psr7": "^1.0",
         "slim/slim": "4.*",
@@ -27,7 +28,13 @@
             "Src\\": "src"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\": "tests"
+        }
+    },
     "scripts": {
-        "app": "php bin/app.php --ansi"
+        "app": "php bin/app.php --ansi",
+        "test": "phpunit --colors=always"
     }
 }

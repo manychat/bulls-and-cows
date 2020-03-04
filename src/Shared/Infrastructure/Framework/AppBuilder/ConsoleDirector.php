@@ -11,7 +11,6 @@ use Doctrine\Migrations\Tools\Console\Helper\ConfigurationHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Console\ConsoleRunner as ORMConsoleRunner;
 use Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper;
-use Src\Shared\Infrastructure\Framework\AppBuilder\EnvLoader as EnvLoader;
 use Symfony\Component\Console\Application;
 
 final class ConsoleDirector
