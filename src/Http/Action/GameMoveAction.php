@@ -9,9 +9,9 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Src\Http\Validator\Validator;
-use Src\Infrastructure\Exception\ValidationException;
-use Src\Model\Game\UseCase\Move\Handler;
-use Src\Model\Game\UseCase\Move\Request;
+use Src\Http\Middleware\ValidationException;
+use Src\Game\Application\Move\Handler;
+use Src\Game\Application\Move\Command;
 
 final class GameMoveAction implements RequestHandlerInterface
 {
@@ -27,7 +27,7 @@ final class GameMoveAction implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $parsedRequest = $this->deserialize($request);
+        $parsedRequest = $this->parseCommand($request);
 
         if ($errors = $this->validator->validate($parsedRequest)) {
             throw new ValidationException($errors);
@@ -40,10 +40,10 @@ final class GameMoveAction implements RequestHandlerInterface
         );
     }
 
-    private function deserialize(ServerRequestInterface $request): Request
+    private function parseCommand(ServerRequestInterface $request): Command
     {
         $body = $request->getParsedBody() ?? [];
 
-        return new Request($body);
+        return new Command($body);
     }
 }

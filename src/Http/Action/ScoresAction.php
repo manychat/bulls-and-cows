@@ -9,9 +9,9 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Src\Http\Validator\Validator;
-use Src\Infrastructure\Exception\ValidationException;
-use Src\Model\Game\UseCase\Score\Handler;
-use Src\Model\Game\UseCase\Score\Request;
+use Src\Http\Middleware\ValidationException;
+use Src\Game\Application\Score\Handler;
+use Src\Game\Application\Score\Command;
 
 final class ScoresAction implements RequestHandlerInterface
 {
@@ -27,7 +27,7 @@ final class ScoresAction implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $parsedRequest = $this->deserialize($request);
+        $parsedRequest = $this->parseCommand($request);
 
         if ($errors = $this->validator->validate($parsedRequest)) {
             throw new ValidationException($errors);
@@ -50,10 +50,10 @@ final class ScoresAction implements RequestHandlerInterface
         );
     }
 
-    private function deserialize(ServerRequestInterface $request): Request
+    private function parseCommand(ServerRequestInterface $request): Command
     {
         $query = $request->getQueryParams() ?? [];
 
-        return new Request($query);
+        return new Command($query);
     }
 }

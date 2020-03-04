@@ -8,9 +8,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Setup;
 use Psr\Container\ContainerInterface;
 use Doctrine\DBAL;
-use Src\Infrastructure\Doctrine\Type\IdType;
-use Src\Infrastructure\Doctrine\Type\LevelType;
-use Src\Infrastructure\Doctrine\Type\FiguresType;
+use Src\Shared\Infrastructure\Doctrine\Type\IdType;
+use Src\Game\Infrastructure\Doctrine\Type\Game\LevelType;
+use Src\Game\Infrastructure\Doctrine\Type\Shared\FiguresType;
 
 return [
     EntityManagerInterface::class => function (ContainerInterface $container): EntityManager {
@@ -42,8 +42,8 @@ return [
             'dev_mode' => false,
             'cache_dir' => ROOT_DIR . '/var/cache/doctrine',
             'metadata_dirs' => [
-                ROOT_DIR . '/src/Model/Player/Entity',
-                ROOT_DIR . '/src/Model/Game/Entity',
+                ROOT_DIR . '/src/Player/Domain',
+                ROOT_DIR . '/src/Game/Domain',
             ],
             'connection' => [
                 'url' => getenv('DB_URL'),

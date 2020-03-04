@@ -9,9 +9,9 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Src\Http\Validator\Validator;
-use Src\Infrastructure\Exception\ValidationException;
-use Src\Model\Game\UseCase\Start\Handler;
-use Src\Model\Game\UseCase\Start\Request;
+use Src\Http\Middleware\ValidationException;
+use Src\Game\Application\Start\Handler;
+use Src\Game\Application\Start\Command;
 
 final class LevelChooseAction implements RequestHandlerInterface
 {
@@ -27,7 +27,7 @@ final class LevelChooseAction implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $parsedRequest = $this->deserialize($request);
+        $parsedRequest = $this->parseCommand($request);
 
         if ($errors = $this->validator->validate($parsedRequest)) {
             throw new ValidationException($errors);
@@ -38,10 +38,10 @@ final class LevelChooseAction implements RequestHandlerInterface
         return new JsonResponse([]);
     }
 
-    private function deserialize(ServerRequestInterface $request): Request
+    private function parseCommand(ServerRequestInterface $request): Command
     {
         $body = $request->getParsedBody() ?? [];
 
-        return new Request($body);
+        return new Command($body);
     }
 }

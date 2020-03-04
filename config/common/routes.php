@@ -5,11 +5,11 @@ declare(strict_types=1);
 use Psr\Container\ContainerInterface;
 use Src\Http\Action;
 use Src\Http\Validator\Validator;
-use Src\Model\Player\UseCase\Register\Handler as PlayerHandler;
-use Src\Model\Game\UseCase\Start\Handler as GameHandler;
-use Src\Model\Game\UseCase\Move\Handler as MoveHandler;
-use Src\Model\Game\UseCase\Score\Handler as ScoreHandler;
-use Src\Model\Game\UseCase\Stop\Handler as StopHandler;
+use Src\Player\Application\Register\Handler as PlayerHandler;
+use Src\Game\Application\Start\Handler as GameHandler;
+use Src\Game\Application\Move\Handler as MoveHandler;
+use Src\Game\Application\Score\Handler as ScoreHandler;
+use Src\Game\Application\Stop\Handler as StopHandler;
 
 return [
     Action\HomeAction::class => function (): Action\HomeAction {

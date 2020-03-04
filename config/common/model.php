@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
-use Src\Infrastructure\Model\Game\Entity\DoctrineGameRepository;
-use Src\Infrastructure\Model\Game\Entity\DoctrineMoveRepository;
-use Src\Infrastructure\Model\Player\Entity\DoctrinePlayerRepository;
-use Src\Infrastructure\Doctrine\DoctrineFlusher;
-use Src\Infrastructure\Model\Score\Entity\DoctrineScoreRepository;
-use Src\Model\Common\FlusherInterface;
-use Src\Model\Game\Entity\Game\GameRepositoryInterface;
-use Src\Model\Game\Entity\Game\RulesDto;
-use Src\Model\Game\Entity\Move\MoveRepositoryInterface;
-use Src\Model\Game\Entity\Score\ScoreBoard;
-use Src\Model\Game\Entity\Score\ScoreRepositoryInterface;
-use Src\Model\Player\Entity\PlayerRepositoryInterface;
-use Src\Model\Player\UseCase\Register\Handler as PlayerHandler;
-use Src\Model\Game\UseCase\Start\Handler as GameHandler;
-use Src\Model\Game\UseCase\Move\Handler as MoveHandler;
-use Src\Model\Game\UseCase\Score\Handler as ScoreHandler;
-use Src\Model\Game\UseCase\Stop\Handler as StopHandler;
+use Src\Game\Infrastructure\Doctrine\Repository\Game\GameRepository;
+use Src\Game\Infrastructure\Doctrine\Repository\Move\MoveRepository;
+use Src\Player\Infrastructure\Doctrine\Repository\PlayerRepository;
+use Src\Shared\Infrastructure\Doctrine\DoctrineFlusher;
+use Src\Game\Infrastructure\Doctrine\Repository\Score\ScoreRepository;
+use Src\Shared\Domain\FlusherInterface;
+use Src\Game\Domain\Game\GameRepositoryInterface;
+use Src\Game\Domain\Shared\RulesDto;
+use Src\Game\Domain\Move\MoveRepositoryInterface;
+use Src\Game\Domain\Score\ScoreBoard;
+use Src\Game\Domain\Score\ScoreRepositoryInterface;
+use Src\Player\Domain\PlayerRepositoryInterface;
+use Src\Player\Application\Register\Handler as PlayerHandler;
+use Src\Game\Application\Start\Handler as GameHandler;
+use Src\Game\Application\Move\Handler as MoveHandler;
+use Src\Game\Application\Score\Handler as ScoreHandler;
+use Src\Game\Application\Stop\Handler as StopHandler;
 
 return [
     FlusherInterface::class => function (ContainerInterface $container): FlusherInterface {
@@ -30,7 +30,7 @@ return [
     },
 
     PlayerRepositoryInterface::class => function (ContainerInterface $container): PlayerRepositoryInterface {
-        return new DoctrinePlayerRepository(
+        return new PlayerRepository(
             $container->get(EntityManagerInterface::class),
         );
     },
@@ -43,7 +43,7 @@ return [
     },
 
     GameRepositoryInterface::class => function (ContainerInterface $container): GameRepositoryInterface {
-        return new DoctrineGameRepository(
+        return new GameRepository(
             $container->get(EntityManagerInterface::class),
         );
     },
@@ -57,7 +57,7 @@ return [
     },
 
     MoveRepositoryInterface::class => function (ContainerInterface $container): MoveRepositoryInterface {
-        return new DoctrineMoveRepository(
+        return new MoveRepository(
             $container->get(EntityManagerInterface::class),
         );
     },
@@ -85,7 +85,7 @@ return [
     },
 
     ScoreRepositoryInterface::class => function (ContainerInterface $container): ScoreRepositoryInterface {
-        return new DoctrineScoreRepository(
+        return new ScoreRepository(
             $container->get(EntityManagerInterface::class),
             $container->get(RulesDto::class),
         );

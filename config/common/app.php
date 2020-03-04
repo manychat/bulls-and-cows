@@ -13,7 +13,7 @@ use Slim\Interfaces\ErrorHandlerInterface;
 use Slim\Psr7\Factory\ResponseFactory;
 use Src\Http\Middleware\JsonBodyParserMiddleware;
 use Src\Http\Middleware\ValidationExceptionMiddleware;
-use Src\Infrastructure\Framework\ErrorHandler\LogHandler;
+use Src\Shared\Infrastructure\Framework\ErrorHandler\LogHandler;
 use Slim\Error\Renderers\PlainTextErrorRenderer;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
