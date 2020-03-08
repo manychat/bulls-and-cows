@@ -12,47 +12,33 @@ use Slim\Interfaces\CallableResolverInterface;
 use Slim\Interfaces\ErrorHandlerInterface;
 use Slim\Psr7\Factory\ResponseFactory;
 use Src\Http\Middleware\JsonBodyParserMiddleware;
-use Src\Http\Middleware\ValidationExceptionMiddleware;
+use Src\Http\Middleware\ErrorsCatcherMiddleware;
 use Src\Shared\Infrastructure\Framework\ErrorHandler\LogHandler;
 use Slim\Error\Renderers\PlainTextErrorRenderer;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 return [
-    ResponseFactoryInterface::class => function () {
-        return new ResponseFactory();
-    },
+    ResponseFactoryInterface::class => fn() => new ResponseFactory(),
 
-    JsonErrorRenderer::class => function () {
-        return new JsonErrorRenderer();
-    },
+    JsonErrorRenderer::class => fn() => new JsonErrorRenderer(),
 
-    PlainTextErrorRenderer::class => function () {
-        return new PlainTextErrorRenderer();
-    },
+    PlainTextErrorRenderer::class => fn() => new PlainTextErrorRenderer(),
 
-    ErrorHandlerInterface::class => function (ContainerInterface $container): ErrorHandlerInterface {
-        return $container->get(LogHandler::class);
-    },
-
-    LogHandler::class => function (ContainerInterface $container): LogHandler {
+    ErrorHandlerInterface::class => function (ContainerInterface $c): LogHandler {
         $logHandler = new LogHandler(
-            $container->get(LoggerInterface::class),
-            $container->get(CallableResolverInterface::class),
-            $container->get(ResponseFactoryInterface::class)
+            $c->get(LoggerInterface::class),
+            $c->get(CallableResolverInterface::class),
+            $c->get(ResponseFactoryInterface::class)
         );
         $logHandler->forceContentType('application/json');
 
         return $logHandler;
     },
 
-    ValidationExceptionMiddleware::class => function (): ValidationExceptionMiddleware {
-        return new ValidationExceptionMiddleware();
-    },
+    JsonBodyParserMiddleware::class => new JsonBodyParserMiddleware(),
 
-    JsonBodyParserMiddleware::class => function (): JsonBodyParserMiddleware {
-        return new JsonBodyParserMiddleware();
-    },
+    ErrorsCatcherMiddleware::class => new ErrorsCatcherMiddleware(),
 
     ValidatorInterface::class => function (): ValidatorInterface {
         AnnotationRegistry::registerLoader('class_exists');
@@ -62,9 +48,7 @@ return [
             ->getValidator();
     },
 
-    Validator::class => function (ContainerInterface $container) {
-        return new Validator(
-            $container->get(ValidatorInterface::class)
-        );
-    },
+    Validator::class => fn(ContainerInterface $c) => new Validator(
+        $c->get(ValidatorInterface::class),
+    ),
 ];

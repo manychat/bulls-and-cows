@@ -15,11 +15,21 @@ final class Errors
         $this->violations = $violations;
     }
 
+    public function __toString(): string
+    {
+        $rows = [];
+        foreach ($this->toArray() as $field => $errors) {
+            $rows[] = "{$field}: " . implode(' ', $errors);
+        }
+
+        return implode('; ', $rows);
+    }
+
     public function toArray(): array
     {
         $errors = [];
         foreach ($this->violations as $violation) {
-            $errors[$violation->getPropertyPath()] = $violation->getMessage();
+            $errors[$violation->getPropertyPath()][] = $violation->getMessage();
         }
 
         return $errors;

@@ -4,27 +4,25 @@ declare(strict_types=1);
 
 namespace Src\Player\Application\Register;
 
-use Symfony\Component\Validator\Constraints as Assert;
-
 final class Command
 {
-    /**
-     * @var int
-     * @Assert\NotBlank()
-     * @Assert\Positive()
-     */
-    public $subscriberId;
+    private $subscriberId;
 
-    /**
-     * @var string
-     * @Assert\NotBlank()
-     * @Assert\Type("string")
-     */
-    public $name;
+    private $name;
 
-    public function __construct(array $body)
+    public function __construct(int $subscriberId, string $name)
     {
-        $this->subscriberId = (int)($body['id'] ?? 0);
-        $this->name = (string)($body['name'] ?? '');
+        $this->subscriberId = $subscriberId;
+        $this->name = $name;
+    }
+
+    public function getSubscriberId(): int
+    {
+        return $this->subscriberId;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 }

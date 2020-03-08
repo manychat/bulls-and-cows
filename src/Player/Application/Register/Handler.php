@@ -23,10 +23,10 @@ final class Handler
 
     public function handle(Command $command): void
     {
-        $player = $this->players->findBySubscriberId($command->subscriberId);
+        $player = $this->players->findBySubscriberId($command->getSubscriberId());
 
         if (null === $player) {
-            $player = new Player(Id::next(), $command->subscriberId, $command->name);
+            $player = new Player(Id::next(), $command->getSubscriberId(), $command->getName());
 
             $this->players->add($player);
 

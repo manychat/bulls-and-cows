@@ -5,24 +5,18 @@ declare(strict_types=1);
 namespace Src\Shared\Infrastructure\Framework\AppBuilder;
 
 use Slim\Interfaces\ErrorHandlerInterface;
-use Src\Shared\Domain\CommonRuntimeException;
 
 final class HandlerBuilder extends AbstractBuilder
 {
     public function build(): void
     {
-        $container = $this->getApp()->getContainer();
-        if (null === $container) {
-            throw new CommonRuntimeException("DI doesn't set");
-        }
-
-        $config = $container->get('config')['logger'];
+        $config = $this->getContainer()->get('config')['logger'];
         $errorMiddleware = $this->getApp()->addErrorMiddleware(
             $config['displayErrorDetails'],
             $config['logErrors'],
             $config['logErrorDetails']
         );
-        $handler = $container->get(ErrorHandlerInterface::class);
+        $handler = $this->getContainer()->get(ErrorHandlerInterface::class);
         $errorMiddleware->setDefaultErrorHandler($handler);
     }
 }
