@@ -25,8 +25,8 @@ final class Handler
         $this->scoreBoard->addRawScores($scoresRaw);
 
         if (
-            !$this->scoreBoard->isPLayerIn($request->subscriberId) &&
-            $score = $this->scores->getScore($request->subscriberId)
+            !$this->scoreBoard->isPLayerIn($request->getSubscriberId()) &&
+            $score = $this->scores->getScore($request->getSubscriberId())
         ) {
             $this->scoreBoard->addRawScore($score);
         }

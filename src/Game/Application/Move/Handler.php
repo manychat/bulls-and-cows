@@ -42,9 +42,9 @@ final class Handler
 
     public function handle(Command $request): Result
     {
-        $player = $this->players->getBySubscriberId($request->subscriberId);
+        $player = $this->players->getBySubscriberId($request->getSubscriberId());
         $game = $this->games->getNewByPlayerId($player->getId());
-        $move = new Move(Id::next(), $game, new Figures($request->figures));
+        $move = new Move(Id::next(), $game, new Figures($request->getFigures()));
 
         if ($game->isMovesLimitReached($this->rules)) {
             throw new LimitReachedException('Attempt limit reached.');

@@ -28,7 +28,7 @@ final class Handler
 
     public function handle(Command $request): void
     {
-        $player = $this->players->getBySubscriberId($request->subscriberId);
+        $player = $this->players->getBySubscriberId($request->getSubscriberId());
         $game = $this->games->findNewByPlayerId($player->getId());
 
         if (null !== $game) {

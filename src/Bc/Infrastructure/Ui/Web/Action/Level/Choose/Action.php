@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Src\Http\Action;
+namespace Src\Bc\Infrastructure\Ui\Web\Action\Level\Choose;
 
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Src\Player\Application\Register\Command;
-use Src\Player\Application\Register\Handler;
+use Src\Game\Application\Start\Handler;
+use Src\Game\Application\Start\Command;
 
-final class InitAction implements RequestHandlerInterface
+final class Action implements RequestHandlerInterface
 {
     private Handler $handler;
 
@@ -22,7 +22,7 @@ final class InitAction implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $command = new Command($request->getAttribute('subscriberId'), $request->getAttribute('name'));
+        $command = new Command($request->getAttribute('subscriberId'), $request->getAttribute('level'));
 
         $this->handler->handle($command);
 

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Src\Http\Action;
+namespace Src\Bc\Infrastructure\Ui\Web\Action\Home;
 
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-final class HomeAction implements RequestHandlerInterface
+final class Action implements RequestHandlerInterface
 {
     private string $name;
 

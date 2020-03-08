@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Src\Http\Action;
+namespace Src\Bc\Infrastructure\Ui\Web\Action;
 
 interface FormInterface
 {

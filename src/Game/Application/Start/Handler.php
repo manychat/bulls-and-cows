@@ -32,11 +32,11 @@ final class Handler
 
     public function handle(Command $request): void
     {
-        $player = $this->players->getBySubscriberId($request->subscriberId);
+        $player = $this->players->getBySubscriberId($request->getSubscriberId());
         $game = $this->games->findNewByPlayerId($player->getId());
 
         if (null === $game) {
-            $game = new Game(Id::next(), $player, new Level($request->level), Figures::generate());
+            $game = new Game(Id::next(), $player, new Level($request->getLevel()), Figures::generate());
 
             $this->games->add($game);
 

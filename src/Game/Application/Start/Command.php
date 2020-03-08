@@ -4,27 +4,25 @@ declare(strict_types=1);
 
 namespace Src\Game\Application\Start;
 
-use Symfony\Component\Validator\Constraints as Assert;
-
 final class Command
 {
-    /**
-     * @var int
-     * @Assert\NotBlank()
-     * @Assert\Positive()
-     */
-    public $subscriberId;
+    private $subscriberId;
 
-    /**
-     * @var string
-     * @Assert\NotBlank()
-     * @Assert\Type("string")
-     */
-    public $level;
+    private $level;
 
-    public function __construct(array $body)
+    public function __construct(int $subscriberId, string $level)
     {
-        $this->subscriberId = (int)($body['id'] ?? 0);
-        $this->level = (string)($body['level'] ?? '');
+        $this->subscriberId = $subscriberId;
+        $this->level = $level;
+    }
+
+    public function getSubscriberId(): int
+    {
+        return $this->subscriberId;
+    }
+
+    public function getLevel(): string
+    {
+        return $this->level;
     }
 }

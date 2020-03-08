@@ -2,38 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Src\Http\Action;
+namespace Src\Bc\Infrastructure\Ui\Web\Action\Score;
 
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Src\Http\Validator\Validator;
-use Src\Http\Middleware\ValidationException;
 use Src\Game\Application\Score\Handler;
 use Src\Game\Application\Score\Command;
 
-final class ScoresAction implements RequestHandlerInterface
+final class Action implements RequestHandlerInterface
 {
     private Handler $handler;
 
-    private Validator $validator;
-
-    public function __construct(Handler $handler, Validator $validator)
+    public function __construct(Handler $handler)
     {
         $this->handler = $handler;
-        $this->validator = $validator;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $parsedRequest = $this->parseCommand($request);
+        $command = new Command($request->getAttribute('subscriberId'));
 
-        if ($errors = $this->validator->validate($parsedRequest)) {
-            throw new ValidationException($errors);
-        }
-
-        $scoreBoard = $this->handler->handle($parsedRequest);
+        $scoreBoard = $this->handler->handle($command);
 
         return new JsonResponse(
             [
@@ -48,12 +39,5 @@ final class ScoresAction implements RequestHandlerInterface
                 ],
             ],
         );
-    }
-
-    private function parseCommand(ServerRequestInterface $request): Command
-    {
-        $query = $request->getQueryParams() ?? [];
-
-        return new Command($query);
     }
 }

@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Src\Http\Action;
+namespace Src\Bc\Infrastructure\Ui\Web\Action\Init;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Src\Bc\Infrastructure\Ui\Web\Action\FormInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final class InitForm implements FormInterface
+final class Form implements FormInterface
 {
     /**
      * @var int
@@ -26,7 +27,7 @@ final class InitForm implements FormInterface
 
     public function __construct(ServerRequestInterface $request)
     {
-        $this->id = $request->getParsedBody()['id'] ?? null;
+        $this->id = (int)($request->getParsedBody()['id'] ?? 0);
         $this->name = $request->getParsedBody()['name'] ?? null;
     }
 

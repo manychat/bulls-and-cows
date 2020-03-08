@@ -4,26 +4,25 @@ declare(strict_types=1);
 
 namespace Src\Game\Application\Move;
 
-use Symfony\Component\Validator\Constraints as Assert;
-
 final class Command
 {
-    /**
-     * @var int
-     * @Assert\NotBlank()
-     * @Assert\Positive()
-     */
-    public $subscriberId;
+    private $subscriberId;
 
-    /**
-     * @var string
-     * @Assert\NotBlank()
-     */
-    public $figures;
+    private $figures;
 
-    public function __construct(array $body)
+    public function __construct(int $subscriberId, string $name)
     {
-        $this->subscriberId = (int)($body['id'] ?? 0);
-        $this->figures = (string)($body['figures'] ?? '');
+        $this->subscriberId = $subscriberId;
+        $this->figures = $name;
+    }
+
+    public function getSubscriberId(): int
+    {
+        return $this->subscriberId;
+    }
+
+    public function getFigures(): string
+    {
+        return $this->figures;
     }
 }

@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Src\Http\Action\FormInterface;
+use Src\Bc\Infrastructure\Ui\Web\Action\FormInterface;
 use Src\Http\Validator\Validator;
 
 final class ValidationMiddleware implements MiddlewareInterface
