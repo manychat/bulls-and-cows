@@ -6,12 +6,14 @@ namespace Src\Bc\Application\Game\Start;
 
 use Exception;
 use InvalidArgumentException;
+use Src\Bc\Application\RuntimeException;
 use Src\Bc\Domain\Model\Id;
 use Src\Bc\Domain\Model\FlusherInterface;
 use Src\Bc\Domain\Model\Game\Game;
 use Src\Bc\Domain\Model\Game\GameRepositoryInterface;
 use Src\Bc\Domain\Model\Game\Level;
 use Src\Bc\Domain\Model\Game\Figures;
+use Src\Bc\Domain\Model\Player\PlayerNotFoundException;
 use Src\Bc\Domain\Model\Player\PlayerRepositoryInterface;
 
 final class Handler
@@ -36,6 +38,7 @@ final class Handler
      * @param Command $request
      *
      * @throws Exception
+     * @throws PlayerNotFoundException
      * @throws RuntimeException
      */
     public function handle(Command $request): void

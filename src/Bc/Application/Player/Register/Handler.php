@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Src\Bc\Application\Player\Register;
 
+use Exception;
 use Src\Bc\Domain\Model\Id;
 use Src\Bc\Domain\Model\FlusherInterface;
 use Src\Bc\Domain\Model\Player\Player;
@@ -21,6 +22,11 @@ final class Handler
         $this->flusher = $flusher;
     }
 
+    /**
+     * @param Command $command
+     *
+     * @throws Exception
+     */
     public function handle(Command $command): void
     {
         $player = $this->players->findBySubscriberId($command->getSubscriberId());

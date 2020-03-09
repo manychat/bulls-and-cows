@@ -11,7 +11,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Src\Bc\Application\Game\Start\Handler;
 use Src\Bc\Application\Game\Start\Command;
-use Src\Bc\Application\Game\Start\RuntimeException;
+use Src\Bc\Application\RuntimeException;
 
 final class Action implements RequestHandlerInterface
 {

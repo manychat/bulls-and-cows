@@ -6,6 +6,7 @@ namespace Src\Bc\Application\Game\Stop;
 
 use Src\Bc\Domain\Model\FlusherInterface;
 use Src\Bc\Domain\Model\Game\GameRepositoryInterface;
+use Src\Bc\Domain\Model\Player\PlayerNotFoundException;
 use Src\Bc\Domain\Model\Player\PlayerRepositoryInterface;
 
 final class Handler
@@ -26,6 +27,11 @@ final class Handler
         $this->flusher = $flusher;
     }
 
+    /**
+     * @param Command $request
+     *
+     * @throws PlayerNotFoundException
+     */
     public function handle(Command $request): void
     {
         $player = $this->players->getBySubscriberId($request->getSubscriberId());

@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace Src\Bc\Infrastructure\Ui\Web\Action\Game\Move;
 
+use Exception;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Src\Bc\Application\Game\Move\Handler;
 use Src\Bc\Application\Game\Move\Command;
+use Src\Bc\Application\RuntimeException;
+use Src\Bc\Domain\Model\Game\GameNotFoundException;
+use Src\Bc\Domain\Model\Player\PlayerNotFoundException;
 
 final class Action implements RequestHandlerInterface
 {
@@ -20,6 +24,15 @@ final class Action implements RequestHandlerInterface
         $this->handler = $handler;
     }
 
+    /**
+     * @param ServerRequestInterface $request
+     *
+     * @return ResponseInterface
+     * @throws Exception
+     * @throws PlayerNotFoundException
+     * @throws GameNotFoundException
+     * @throws RuntimeException
+     */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $command = new Command($request->getAttribute('subscriberId'), $request->getAttribute('figures'));

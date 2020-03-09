@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Src\Bc\Application\Game\Move;
 
+use Exception;
+use InvalidArgumentException;
+use Src\Bc\Application\RuntimeException;
+use Src\Bc\Domain\Model\Game\GameNotFoundException;
 use Src\Bc\Domain\Model\Id;
 use Src\Bc\Domain\Model\FlusherInterface;
 use Src\Bc\Domain\Model\Game\GameRepositoryInterface;
@@ -12,6 +16,7 @@ use Src\Bc\Domain\Model\Game\RulesDto;
 use Src\Bc\Domain\Model\Game\Move\Move;
 use Src\Bc\Domain\Model\Game\Move\MoveRepositoryInterface;
 use Src\Bc\Domain\Model\Game\Figures;
+use Src\Bc\Domain\Model\Player\PlayerNotFoundException;
 use Src\Bc\Domain\Model\Player\PlayerRepositoryInterface;
 
 final class Handler
@@ -40,14 +45,28 @@ final class Handler
         $this->rules = $rules;
     }
 
+    /**
+     * @param Command $request
+     *
+     * @return Result
+     * @throws Exception
+     * @throws PlayerNotFoundException
+     * @throws GameNotFoundException
+     * @throws RuntimeException
+     */
     public function handle(Command $request): Result
     {
         $player = $this->players->getBySubscriberId($request->getSubscriberId());
         $game = $this->games->getNewByPlayerId($player->getId());
-        $move = new Move(Id::next(), $game, new Figures($request->getFigures()));
+
+        try {
+            $move = new Move(Id::next(), $game, new Figures($request->getFigures()));
+        } catch (InvalidArgumentException $e) {
+            throw new RuntimeException($e->getMessage(), $e->getCode(), $e);
+        }
 
         if ($game->isMovesLimitReached($this->rules)) {
-            throw new LimitReachedException('Attempt limit reached.');
+            throw new RuntimeException('Attempt limit reached.');
         }
 
         $result = $game->getFigures()->compare($move->getFigures());

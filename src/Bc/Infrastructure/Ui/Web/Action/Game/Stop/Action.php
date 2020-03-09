@@ -10,6 +10,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Src\Bc\Application\Game\Stop\Handler;
 use Src\Bc\Application\Game\Stop\Command;
+use Src\Bc\Domain\Model\Player\PlayerNotFoundException;
 
 final class Action implements RequestHandlerInterface
 {
@@ -20,6 +21,12 @@ final class Action implements RequestHandlerInterface
         $this->handler = $handler;
     }
 
+    /**
+     * @param ServerRequestInterface $request
+     *
+     * @return ResponseInterface
+     * @throws PlayerNotFoundException
+     */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $command = new Command($request->getAttribute('subscriberId'));
