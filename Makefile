@@ -25,3 +25,6 @@ migration-diff:
 
 migration:
 	docker-compose exec php-cli composer app migrations:migrate
+
+test:
+	docker-compose exec php-cli composer test

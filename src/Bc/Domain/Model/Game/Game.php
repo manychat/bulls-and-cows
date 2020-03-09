@@ -65,6 +65,7 @@ final class Game
         $this->player = $player;
         $this->level = $level;
         $this->figures = $figures;
+        $this->result = null;
         $this->movesCount = 0;
         $this->createdAt = new DateTimeImmutable();
     }
@@ -113,13 +114,13 @@ final class Game
 
     public function finishMove(bool $isVictory): void
     {
-        $this->getCountMove();
+        $this->move();
         if ($isVictory) {
             $this->result = $isVictory;
         }
     }
 
-    public function getCountMove(): void
+    public function move(): void
     {
         $this->movesCount++;
     }
