@@ -26,8 +26,8 @@ final class ConsoleDirector
         $connection = $entityManager->getConnection();
 
         $configuration = new Configuration($connection);
-        $configuration->setMigrationsDirectory('src/Data/Migration');
-        $configuration->setMigrationsNamespace('Src\Data\Migration');
+        $configuration->setMigrationsDirectory('src/Bc/Infrastructure/Migration');
+        $configuration->setMigrationsNamespace('Src\Bc\Infrastructure\Migration');
 
         $cli->getHelperSet()->set(new EntityManagerHelper($entityManager), 'em');
         $cli->getHelperSet()->set(new ConfigurationHelper($connection, $configuration), 'configuration');
@@ -36,14 +36,9 @@ final class ConsoleDirector
         ORMConsoleRunner::addCommands($cli);
         DBALRunnerAlias::addCommands($cli);
 
-        $commands = $container->get('config')['console']['commands'] ?? [];
         array_map(
-            function (string $class) use ($cli, $container): void {
-                if ($instance = $container->get($class)) {
-                    $cli->add($container->get($class));
-                }
-            },
-            $commands
+            fn(string $class) => $cli->add($container->get($class)),
+            $container->get('config')['console']['commands'] ?? []
         );
 
         return $cli;

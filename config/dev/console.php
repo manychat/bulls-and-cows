@@ -5,13 +5,9 @@ declare(strict_types=1);
 use Doctrine\Migrations\Tools\Console\Command;
 
 return [
-    Command\DiffCommand::class => function (): Command\DiffCommand {
-        return new Command\DiffCommand();
-    },
+    Command\DiffCommand::class => fn() => new Command\DiffCommand(),
 
-    Command\MigrateCommand::class => function (): Command\MigrateCommand {
-        return new Command\MigrateCommand();
-    },
+    Command\MigrateCommand::class => fn() => new Command\MigrateCommand(),
 
     'config' => [
         'console' => [

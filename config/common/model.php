@@ -23,94 +23,68 @@ use Src\Game\Application\Score\Handler as ScoreHandler;
 use Src\Game\Application\Stop\Handler as StopHandler;
 
 return [
-    FlusherInterface::class => function (ContainerInterface $container): FlusherInterface {
-        return new DoctrineFlusher(
-            $container->get(EntityManagerInterface::class)
-        );
-    },
+    FlusherInterface::class => fn(ContainerInterface $c) => new DoctrineFlusher(
+        $c->get(EntityManagerInterface::class),
+    ),
 
-    PlayerRepositoryInterface::class => function (ContainerInterface $container): PlayerRepositoryInterface {
-        return new PlayerRepository(
-            $container->get(EntityManagerInterface::class),
-        );
-    },
+    PlayerRepositoryInterface::class => fn(ContainerInterface $c) => new PlayerRepository(
+        $c->get(EntityManagerInterface::class),
+    ),
 
-    PlayerHandler::class => function (ContainerInterface $container): PlayerHandler {
-        return new PlayerHandler(
-            $container->get(PlayerRepositoryInterface::class),
-            $container->get(FlusherInterface::class),
-        );
-    },
+    PlayerHandler::class => fn(ContainerInterface $c) => new PlayerHandler(
+        $c->get(PlayerRepositoryInterface::class),
+        $c->get(FlusherInterface::class),
+    ),
 
-    GameRepositoryInterface::class => function (ContainerInterface $container): GameRepositoryInterface {
-        return new GameRepository(
-            $container->get(EntityManagerInterface::class),
-        );
-    },
+    GameRepositoryInterface::class => fn(ContainerInterface $c) => new GameRepository(
+        $c->get(EntityManagerInterface::class),
+    ),
 
-    GameHandler::class => function (ContainerInterface $container): GameHandler {
-        return new GameHandler(
-            $container->get(PlayerRepositoryInterface::class),
-            $container->get(GameRepositoryInterface::class),
-            $container->get(FlusherInterface::class),
-        );
-    },
+    GameHandler::class => fn(ContainerInterface $c) => new GameHandler(
+        $c->get(PlayerRepositoryInterface::class),
+        $c->get(GameRepositoryInterface::class),
+        $c->get(FlusherInterface::class),
+    ),
 
-    MoveRepositoryInterface::class => function (ContainerInterface $container): MoveRepositoryInterface {
-        return new MoveRepository(
-            $container->get(EntityManagerInterface::class),
-        );
-    },
+    MoveRepositoryInterface::class => fn(ContainerInterface $c) => new MoveRepository(
+        $c->get(EntityManagerInterface::class),
+    ),
 
-    RulesDto::class => function (ContainerInterface $container): RulesDto {
-        $config = $container->get('config')['game']['rules'];
+    RulesDto::class => fn(ContainerInterface $container) => new RulesDto(
+        $container->get('config')['game']['rules']['max_moves_count_for_hard_level'],
+        $container->get('config')['game']['rules']['points_for_hard_victory'],
+        $container->get('config')['game']['rules']['points_for_easy_victory'],
+        $container->get('config')['game']['rules']['points_for_losing'],
+        $container->get('config')['game']['rules']['score_board_size'],
+    ),
 
-        return new RulesDto(
-            $config['max_moves_count_for_hard_level'],
-            $config['points_for_hard_victory'],
-            $config['points_for_easy_victory'],
-            $config['points_for_losing'],
-            $config['score_board_size'],
-        );
-    },
+    MoveHandler::class => fn(ContainerInterface $c) => new MoveHandler(
+        $c->get(PlayerRepositoryInterface::class),
+        $c->get(GameRepositoryInterface::class),
+        $c->get(MoveRepositoryInterface::class),
+        $c->get(FlusherInterface::class),
+        $c->get(RulesDto::class),
+    ),
 
-    MoveHandler::class => function (ContainerInterface $container): MoveHandler {
-        return new MoveHandler(
-            $container->get(PlayerRepositoryInterface::class),
-            $container->get(GameRepositoryInterface::class),
-            $container->get(MoveRepositoryInterface::class),
-            $container->get(FlusherInterface::class),
-            $container->get(RulesDto::class),
-        );
-    },
+    ScoreRepositoryInterface::class => fn(ContainerInterface $c) => new ScoreRepository(
+        $c->get(EntityManagerInterface::class),
+        $c->get(RulesDto::class),
+    ),
 
-    ScoreRepositoryInterface::class => function (ContainerInterface $container): ScoreRepositoryInterface {
-        return new ScoreRepository(
-            $container->get(EntityManagerInterface::class),
-            $container->get(RulesDto::class),
-        );
-    },
+    ScoreHandler::class => fn(ContainerInterface $c) => new ScoreHandler(
+        $c->get(ScoreRepositoryInterface::class),
+        $c->get(ScoreBoard::class),
+    ),
 
-    ScoreHandler::class => function (ContainerInterface $container): ScoreHandler {
-        return new ScoreHandler(
-            $container->get(ScoreRepositoryInterface::class),
-            $container->get(ScoreBoard::class),
-        );
-    },
+    StopHandler::class => fn(ContainerInterface $c) => new StopHandler(
+        $c->get(PlayerRepositoryInterface::class),
+        $c->get(GameRepositoryInterface::class),
+        $c->get(FlusherInterface::class),
+    ),
 
-    StopHandler::class => function (ContainerInterface $container): StopHandler {
-        return new StopHandler(
-            $container->get(PlayerRepositoryInterface::class),
-            $container->get(GameRepositoryInterface::class),
-            $container->get(FlusherInterface::class),
-        );
-    },
-
-    ScoreBoard::class => function (ContainerInterface $container): ScoreBoard {
-        return new ScoreBoard(
-            $container->get(RulesDto::class),
-        );
-    },
+    ScoreBoard::class => fn(ContainerInterface $c) => new ScoreBoard(
+        $c->get(RulesDto::class),
+    ),
 
     'config' => [
         'game' => [
