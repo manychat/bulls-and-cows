@@ -1,4 +1,4 @@
-### Main page
+### Home page
 GET http://localhost
 Content-Type: application/json
 
@@ -26,7 +26,7 @@ Content-Type: application/json
 
 {
   "id": 1,
-  "figures": "4567"
+  "figures": "0123"
 }
 
 ### Gamoe stop
@@ -38,7 +38,7 @@ Content-Type: application/json
 }
 
 ### Scores
-GET http://localhost/scores?id=2
+GET http://localhost/scores?id=1
 Content-Type: application/json
 
 ###
