@@ -4,36 +4,18 @@ declare(strict_types=1);
 
 namespace Src\Bc\Infrastructure\Domain\Model\Game;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
 use Src\Bc\Domain\Model\Game\GameNotFoundException;
 use Src\Bc\Domain\Model\Id;
 use Src\Bc\Domain\Model\Game\Game;
 use Src\Bc\Domain\Model\Game\GameRepositoryInterface;
 
-final class DoctrineGameRepository implements GameRepositoryInterface
+final class MemoryGameRepository implements GameRepositoryInterface
 {
-    private EntityManagerInterface $em;
-
-    private EntityRepository $repo;
-
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
-        $this->repo = $em->getRepository(Game::class);
-    }
+    private array $games = [];
 
     public function findNewByPlayerId(Id $playerId): ?Game
     {
-        /** @var Game $game */
-        $game = $this->repo->findOneBy(
-            [
-                'player' => $playerId->getId(),
-                'result' => null,
-            ]
-        );
-
-        return $game;
+        return $this->games[$playerId->getId()] ?? null;
     }
 
     /**
@@ -54,6 +36,6 @@ final class DoctrineGameRepository implements GameRepositoryInterface
 
     public function add(Game $game): void
     {
-        $this->em->persist($game);
+        $this->games[$game->getPlayer()->getId()->getId()] = $game;
     }
 }

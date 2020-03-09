@@ -10,10 +10,10 @@ final class Command
 
     private string $figures;
 
-    public function __construct(int $subscriberId, string $name)
+    public function __construct(int $subscriberId, string $figures)
     {
         $this->subscriberId = $subscriberId;
-        $this->figures = $name;
+        $this->figures = $figures;
     }
 
     public function getSubscriberId(): int

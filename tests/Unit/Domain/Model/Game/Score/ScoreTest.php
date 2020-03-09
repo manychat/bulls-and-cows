@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Test\Unit\Model\Game\Score;
+namespace Test\Unit\Domain\Model\Game\Score;
 
 use PHPUnit\Framework\TestCase;
 use Src\Bc\Domain\Model\Game\Score\Score;
