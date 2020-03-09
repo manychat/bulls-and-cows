@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
-use Src\Http\Validator\Validator;
+use Src\Bc\Infrastructure\Ui\Web\Validator\Validator;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Log\LoggerInterface;
@@ -11,8 +11,8 @@ use Slim\Error\Renderers\JsonErrorRenderer;
 use Slim\Interfaces\CallableResolverInterface;
 use Slim\Interfaces\ErrorHandlerInterface;
 use Slim\Psr7\Factory\ResponseFactory;
-use Src\Http\Middleware\JsonBodyParserMiddleware;
-use Src\Http\Middleware\ErrorsCatcherMiddleware;
+use Src\Bc\Infrastructure\Ui\Web\Middleware\JsonBodyParserMiddleware;
+use Src\Bc\Infrastructure\Ui\Web\Middleware\ErrorsCatcherMiddleware;
 use Src\Shared\Infrastructure\Framework\ErrorHandler\LogHandler;
 use Slim\Error\Renderers\PlainTextErrorRenderer;
 use Symfony\Component\Validator\Validation;

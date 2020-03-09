@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Src\Game\Domain\Game;
 
+use InvalidArgumentException;
 use Webmozart\Assert\Assert;
 
 final class Level
@@ -14,10 +15,17 @@ final class Level
 
     private string $level;
 
+    /**
+     * Level constructor.
+     *
+     * @param string $levelRaw
+     *
+     * @throws InvalidArgumentException
+     */
     public function __construct(string $levelRaw)
     {
         $this->level = trim($levelRaw);
-        Assert::oneOf($this->level, self::ALL);
+        Assert::oneOf($this->level, self::ALL, 'Choose correct level');
     }
 
     public function getLevel(): string

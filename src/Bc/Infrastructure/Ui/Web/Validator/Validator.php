@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Src\Http\Validator;
+namespace Src\Bc\Infrastructure\Ui\Web\Validator;
 
+use Src\Bc\Infrastructure\Ui\Web\Action\FormInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class Validator
@@ -15,7 +16,7 @@ final class Validator
         $this->validator = $validator;
     }
 
-    public function validate(object $object): ?Errors
+    public function validate(FormInterface $object): ?Errors
     {
         $violations = $this->validator->validate($object);
         if ($violations->count() > 0) {

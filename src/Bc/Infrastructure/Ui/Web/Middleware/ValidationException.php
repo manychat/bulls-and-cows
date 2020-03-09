@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Src\Http\Middleware;
+namespace Src\Bc\Infrastructure\Ui\Web\Middleware;
 
-use Src\Http\Validator\Errors;
+use Src\Bc\Infrastructure\Ui\Web\Validator\Errors;
 use Src\Shared\Domain\CommonRuntimeException;
 
 final class ValidationException extends CommonRuntimeException

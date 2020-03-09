@@ -7,8 +7,8 @@ namespace Src\Shared\Infrastructure\Framework\AppBuilder;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as Handler;
 use Src\Bc\Infrastructure\Ui\Web\Action;
-use Src\Http\Middleware\ValidationMiddleware as Validation;
-use Src\Http\Validator\Validator;
+use Src\Bc\Infrastructure\Ui\Web\Middleware\ValidationMiddleware as Validation;
+use Src\Bc\Infrastructure\Ui\Web\Validator\Validator;
 
 final class RoutesBuilder extends AbstractBuilder
 {

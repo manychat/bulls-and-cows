@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Src\Http\Middleware;
+namespace Src\Bc\Infrastructure\Ui\Web\Middleware;
 
 use Laminas\Diactoros\Response\JsonResponse;
 

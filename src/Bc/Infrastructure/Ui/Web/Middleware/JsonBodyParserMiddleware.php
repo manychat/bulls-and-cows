@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Src\Http\Middleware;
+namespace Src\Bc\Infrastructure\Ui\Web\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -15,7 +15,7 @@ final class JsonBodyParserMiddleware implements MiddlewareInterface
     {
         $contentType = $request->getHeaderLine('Content-Type');
 
-        if (strstr($contentType, 'application/json')) {
+        if (false !== strpos($contentType, 'application/json')) {
             $contents = json_decode(file_get_contents('php://input'), true);
             if (JSON_ERROR_NONE === json_last_error()) {
                 $request = $request->withParsedBody($contents);

@@ -10,7 +10,7 @@ final class MiddlewareBuilder extends AbstractBuilder
 {
     public function build(): void
     {
-        $this->getApp()->add(Middleware\ErrorsCatcherMiddleware::class . '::process');
-        $this->getApp()->add(Middleware\JsonBodyParserMiddleware::class . '::process');
+        $this->getApp()->add(\Src\Bc\Infrastructure\Ui\Web\Middleware\ErrorsCatcherMiddleware::class . '::process');
+        $this->getApp()->add(\Src\Bc\Infrastructure\Ui\Web\Middleware\JsonBodyParserMiddleware::class . '::process');
     }
 }

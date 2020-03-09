@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Src\Game\Application\Start;
 
+use InvalidArgumentException;
 use Src\Shared\Domain\Id;
 use Src\Shared\Domain\FlusherInterface;
 use Src\Game\Domain\Game\Game;
@@ -36,11 +37,15 @@ final class Handler
         $game = $this->games->findNewByPlayerId($player->getId());
 
         if (null === $game) {
-            $game = new Game(Id::next(), $player, new Level($request->getLevel()), Figures::generate());
+            try {
+                $game = new Game(Id::next(), $player, new Level($request->getLevel()), Figures::generate());
 
-            $this->games->add($game);
+                $this->games->add($game);
 
-            $this->flusher->flush($game);
+                $this->flusher->flush($game);
+            } catch (InvalidArgumentException $e) {
+                throw new RuntimeException($e->getMessage(), $e->getCode(), $e);
+            }
         }
     }
 }

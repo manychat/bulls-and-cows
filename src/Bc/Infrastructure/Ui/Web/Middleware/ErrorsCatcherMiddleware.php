@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Src\Http\Middleware;
+namespace Src\Bc\Infrastructure\Ui\Web\Middleware;
 
-use Throwable;
+use Src\Shared\Domain\CommonRuntimeException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -18,8 +18,8 @@ final class ErrorsCatcherMiddleware implements MiddlewareInterface
             return $handler->handle($request);
         } catch (ValidationException $e) {
             return new ErrorsJsonResponse((string)$e->getErrors());
-        }/* catch (Throwable $e) {
+        } catch (CommonRuntimeException $e) {
             return new ErrorsJsonResponse($e->getMessage());
-        }*/
+        }
     }
 }

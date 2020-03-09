@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace Src\Player\Infrastructure\Doctrine\Repository;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use Src\Player\Domain\PlayerNotFoundException;
 use Src\Player\Domain\Player;
 use Src\Player\Domain\PlayerRepositoryInterface;
 
 final class PlayerRepository implements PlayerRepositoryInterface
 {
-    private $em;
+    private EntityManagerInterface $em;
 
-    private $repo;
+    private EntityRepository $repo;
 
     public function __construct(EntityManagerInterface $em)
     {
