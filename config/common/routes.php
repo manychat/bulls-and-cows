@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 use Psr\Container\ContainerInterface;
 use Src\Player\Application\Register\Handler as PlayerHandler;
-use Src\Game\Application\Start\Handler as GameHandler;
-use Src\Game\Application\Move\Handler as MoveHandler;
-use Src\Game\Application\Score\Handler as ScoreHandler;
-use Src\Game\Application\Stop\Handler as StopHandler;
+use Src\Bc\Application\Start\Handler as GameHandler;
+use Src\Bc\Application\Move\Handler as MoveHandler;
+use Src\Bc\Application\Score\Handler as ScoreHandler;
+use Src\Bc\Application\Stop\Handler as StopHandler;
 use Src\Bc\Infrastructure\Ui\Web\Action;
 
 return [

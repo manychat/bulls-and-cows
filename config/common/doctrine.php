@@ -9,8 +9,8 @@ use Doctrine\ORM\Tools\Setup;
 use Psr\Container\ContainerInterface;
 use Doctrine\DBAL;
 use Src\Shared\Infrastructure\Doctrine\Type\IdType;
-use Src\Game\Infrastructure\Doctrine\Type\Game\LevelType;
-use Src\Game\Infrastructure\Doctrine\Type\Shared\FiguresType;
+use Src\Bc\Infrastructure\Domain\Model\Game\DoctrineLevelType;
+use Src\Bc\Infrastructure\Domain\Model\Shared\DoctrineFiguresType;
 
 return [
     EntityManagerInterface::class => function (ContainerInterface $container): EntityManager {
@@ -50,8 +50,8 @@ return [
             ],
             'types' => [
                 IdType::NAME => IdType::class,
-                LevelType::NAME => LevelType::class,
-                FiguresType::NAME => FiguresType::class,
+                DoctrineLevelType::NAME => DoctrineLevelType::class,
+                DoctrineFiguresType::NAME => DoctrineFiguresType::class,
             ],
         ],
     ],

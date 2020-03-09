@@ -8,8 +8,8 @@ use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Src\Game\Application\Score\Handler;
-use Src\Game\Application\Score\Command;
+use Src\Bc\Application\Score\Handler;
+use Src\Bc\Application\Score\Command;
 
 final class Action implements RequestHandlerInterface
 {
