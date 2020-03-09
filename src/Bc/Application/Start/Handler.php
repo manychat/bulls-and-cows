@@ -6,13 +6,13 @@ namespace Src\Bc\Application\Start;
 
 use Exception;
 use InvalidArgumentException;
-use Src\Shared\Domain\Id;
-use Src\Shared\Domain\FlusherInterface;
+use Src\Bc\Domain\Model\Id;
+use Src\Bc\Domain\Model\FlusherInterface;
 use Src\Bc\Domain\Model\Game\Game;
 use Src\Bc\Domain\Model\Game\GameRepositoryInterface;
 use Src\Bc\Domain\Model\Game\Level;
 use Src\Bc\Domain\Model\Shared\Figures;
-use Src\Player\Domain\PlayerRepositoryInterface;
+use Src\Bc\Domain\Model\Player\PlayerRepositoryInterface;
 
 final class Handler
 {

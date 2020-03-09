@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Psr\Container\ContainerInterface;
-use Src\Player\Application\Register\Handler as PlayerHandler;
+use Src\Bc\Application\Player\Register\Handler as PlayerHandler;
 use Src\Bc\Application\Start\Handler as GameHandler;
 use Src\Bc\Application\Move\Handler as MoveHandler;
 use Src\Bc\Application\Score\Handler as ScoreHandler;

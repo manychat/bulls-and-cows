@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Src\Bc\Application\Stop;
 
-use Src\Shared\Domain\FlusherInterface;
+use Src\Bc\Domain\Model\FlusherInterface;
 use Src\Bc\Domain\Model\Game\GameRepositoryInterface;
-use Src\Player\Domain\PlayerRepositoryInterface;
+use Src\Bc\Domain\Model\Player\PlayerRepositoryInterface;
 
 final class Handler
 {

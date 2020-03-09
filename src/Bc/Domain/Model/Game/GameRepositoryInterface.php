@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Src\Bc\Domain\Model\Game;
 
-use Src\Shared\Domain\Id;
+use Src\Bc\Domain\Model\Id;
 
 interface GameRepositoryInterface
 {

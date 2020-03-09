@@ -13,7 +13,7 @@ use Slim\Interfaces\ErrorHandlerInterface;
 use Slim\Psr7\Factory\ResponseFactory;
 use Src\Bc\Infrastructure\Ui\Web\Middleware\JsonBodyParserMiddleware;
 use Src\Bc\Infrastructure\Ui\Web\Middleware\ErrorsCatcherMiddleware;
-use Src\Shared\Infrastructure\Framework\ErrorHandler\LogHandler;
+use Src\Bc\Infrastructure\Ui\Shared\AppBuilder\LogErrorHandler;
 use Slim\Error\Renderers\PlainTextErrorRenderer;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -25,8 +25,8 @@ return [
 
     PlainTextErrorRenderer::class => fn() => new PlainTextErrorRenderer(),
 
-    ErrorHandlerInterface::class => function (ContainerInterface $c): LogHandler {
-        $logHandler = new LogHandler(
+    ErrorHandlerInterface::class => function (ContainerInterface $c): LogErrorHandler {
+        $logHandler = new LogErrorHandler(
             $c->get(LoggerInterface::class),
             $c->get(CallableResolverInterface::class),
             $c->get(ResponseFactoryInterface::class)

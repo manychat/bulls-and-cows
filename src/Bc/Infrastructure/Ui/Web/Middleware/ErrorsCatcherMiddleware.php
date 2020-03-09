@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Src\Bc\Infrastructure\Ui\Web\Middleware;
 
-use Src\Shared\Domain\CommonRuntimeException;
+use Src\Bc\Domain\Model\CommonRuntimeException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;

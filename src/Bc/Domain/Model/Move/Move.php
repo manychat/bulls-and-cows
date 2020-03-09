@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Src\Bc\Domain\Model\Move;
 
 use DateTimeImmutable;
-use Src\Shared\Domain\Id;
+use Src\Bc\Domain\Model\Id;
 use Doctrine\ORM\Mapping as ORM;
 use Src\Bc\Domain\Model\Game\Game;
 use Src\Bc\Domain\Model\Shared\Figures;

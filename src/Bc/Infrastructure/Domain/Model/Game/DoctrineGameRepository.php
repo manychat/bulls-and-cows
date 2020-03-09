@@ -7,7 +7,7 @@ namespace Src\Bc\Infrastructure\Domain\Model\Game;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Src\Bc\Domain\Model\Game\GameNotFoundException;
-use Src\Shared\Domain\Id;
+use Src\Bc\Domain\Model\Id;
 use Src\Bc\Domain\Model\Game\Game;
 use Src\Bc\Domain\Model\Game\GameRepositoryInterface;
 

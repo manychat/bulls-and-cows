@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Src\Bc\Domain\Model\Game;
 
 use DateTimeImmutable;
-use Src\Shared\Domain\Id;
+use Src\Bc\Domain\Model\Id;
 use Doctrine\ORM\Mapping as ORM;
 use Src\Bc\Domain\Model\Shared\Figures;
 use Src\Bc\Domain\Model\Shared\RulesDto;
-use Src\Player\Domain\Player;
+use Src\Bc\Domain\Model\Player\Player;
 
 /**
  * @ORM\Entity
@@ -26,7 +26,7 @@ final class Game
 
     /**
      * @var Player
-     * @ORM\ManyToOne(targetEntity="Src\Player\Domain\Player")
+     * @ORM\ManyToOne(targetEntity="Src\Bc\Domain\Model\Player\Player")
      * @ORM\JoinColumn(name="player_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private Player $player;

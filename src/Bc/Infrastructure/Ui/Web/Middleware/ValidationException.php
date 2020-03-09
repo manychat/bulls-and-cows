@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Src\Bc\Infrastructure\Ui\Web\Middleware;
 
 use Src\Bc\Infrastructure\Ui\Web\Validator\Errors;
-use Src\Shared\Domain\CommonRuntimeException;
+use Src\Bc\Domain\Model\CommonRuntimeException;
 
 final class ValidationException extends CommonRuntimeException
 {

@@ -6,17 +6,17 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use Src\Bc\Infrastructure\Domain\Model\Game\DoctrineGameRepository;
 use Src\Bc\Infrastructure\Domain\Model\Move\DoctrineMoveRepository;
-use Src\Player\Infrastructure\Doctrine\Repository\PlayerRepository;
-use Src\Shared\Infrastructure\Doctrine\DoctrineFlusher;
+use Src\Bc\Infrastructure\Domain\Model\Player\DoctrinePlayerRepository;
+use Src\Bc\Infrastructure\Domain\Model\DoctrineFlusher;
 use Src\Bc\Infrastructure\Domain\Model\Score\DoctrineScoreRepository;
-use Src\Shared\Domain\FlusherInterface;
+use Src\Bc\Domain\Model\FlusherInterface;
 use Src\Bc\Domain\Model\Game\GameRepositoryInterface;
 use Src\Bc\Domain\Model\Shared\RulesDto;
 use Src\Bc\Domain\Model\Move\MoveRepositoryInterface;
 use Src\Bc\Domain\Model\Score\ScoreBoard;
 use Src\Bc\Domain\Model\Score\ScoreRepositoryInterface;
-use Src\Player\Domain\PlayerRepositoryInterface;
-use Src\Player\Application\Register\Handler as PlayerHandler;
+use Src\Bc\Domain\Model\Player\PlayerRepositoryInterface;
+use Src\Bc\Application\Player\Register\Handler as PlayerHandler;
 use Src\Bc\Application\Start\Handler as GameHandler;
 use Src\Bc\Application\Move\Handler as MoveHandler;
 use Src\Bc\Application\Score\Handler as ScoreHandler;
@@ -27,7 +27,7 @@ return [
         $c->get(EntityManagerInterface::class),
     ),
 
-    PlayerRepositoryInterface::class => fn(ContainerInterface $c) => new PlayerRepository(
+    PlayerRepositoryInterface::class => fn(ContainerInterface $c) => new DoctrinePlayerRepository(
         $c->get(EntityManagerInterface::class),
     ),
 

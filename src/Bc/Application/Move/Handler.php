@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Src\Bc\Application\Move;
 
-use Src\Shared\Domain\Id;
-use Src\Shared\Domain\FlusherInterface;
+use Src\Bc\Domain\Model\Id;
+use Src\Bc\Domain\Model\FlusherInterface;
 use Src\Bc\Domain\Model\Game\GameRepositoryInterface;
 use Src\Bc\Domain\Model\Game\Result;
 use Src\Bc\Domain\Model\Shared\RulesDto;
 use Src\Bc\Domain\Model\Move\Move;
 use Src\Bc\Domain\Model\Move\MoveRepositoryInterface;
 use Src\Bc\Domain\Model\Shared\Figures;
-use Src\Player\Domain\PlayerRepositoryInterface;
+use Src\Bc\Domain\Model\Player\PlayerRepositoryInterface;
 
 final class Handler
 {

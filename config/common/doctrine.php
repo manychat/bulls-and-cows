@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Setup;
 use Psr\Container\ContainerInterface;
 use Doctrine\DBAL;
-use Src\Shared\Infrastructure\Doctrine\Type\IdType;
+use Src\Bc\Infrastructure\Domain\Model\DoctrineIdType;
 use Src\Bc\Infrastructure\Domain\Model\Game\DoctrineLevelType;
 use Src\Bc\Infrastructure\Domain\Model\Shared\DoctrineFiguresType;
 
@@ -49,7 +49,7 @@ return [
                 'url' => getenv('DB_URL'),
             ],
             'types' => [
-                IdType::NAME => IdType::class,
+                DoctrineIdType::NAME => DoctrineIdType::class,
                 DoctrineLevelType::NAME => DoctrineLevelType::class,
                 DoctrineFiguresType::NAME => DoctrineFiguresType::class,
             ],
