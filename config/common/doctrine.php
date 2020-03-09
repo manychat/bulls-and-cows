@@ -10,7 +10,7 @@ use Psr\Container\ContainerInterface;
 use Doctrine\DBAL;
 use Src\Bc\Infrastructure\Domain\Model\DoctrineIdType;
 use Src\Bc\Infrastructure\Domain\Model\Game\DoctrineLevelType;
-use Src\Bc\Infrastructure\Domain\Model\Shared\DoctrineFiguresType;
+use Src\Bc\Infrastructure\Domain\Model\Game\DoctrineFiguresType;
 
 return [
     EntityManagerInterface::class => function (ContainerInterface $container): EntityManager {

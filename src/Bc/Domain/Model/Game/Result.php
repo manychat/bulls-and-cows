@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Src\Bc\Domain\Model\Game;
 
-use Src\Bc\Domain\Model\Shared\Figures;
-
 final class Result
 {
     private int $bulls;

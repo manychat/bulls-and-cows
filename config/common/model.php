@@ -5,22 +5,22 @@ declare(strict_types=1);
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use Src\Bc\Infrastructure\Domain\Model\Game\DoctrineGameRepository;
-use Src\Bc\Infrastructure\Domain\Model\Move\DoctrineMoveRepository;
+use Src\Bc\Infrastructure\Domain\Model\Game\Move\DoctrineMoveRepository;
 use Src\Bc\Infrastructure\Domain\Model\Player\DoctrinePlayerRepository;
 use Src\Bc\Infrastructure\Domain\Model\DoctrineFlusher;
-use Src\Bc\Infrastructure\Domain\Model\Score\DoctrineScoreRepository;
+use Src\Bc\Infrastructure\Domain\Model\Game\Score\DoctrineScoreRepository;
 use Src\Bc\Domain\Model\FlusherInterface;
 use Src\Bc\Domain\Model\Game\GameRepositoryInterface;
-use Src\Bc\Domain\Model\Shared\RulesDto;
-use Src\Bc\Domain\Model\Move\MoveRepositoryInterface;
-use Src\Bc\Domain\Model\Score\ScoreBoard;
-use Src\Bc\Domain\Model\Score\ScoreRepositoryInterface;
+use Src\Bc\Domain\Model\Game\RulesDto;
+use Src\Bc\Domain\Model\Game\Move\MoveRepositoryInterface;
+use Src\Bc\Domain\Model\Game\Score\ScoreBoard;
+use Src\Bc\Domain\Model\Game\Score\ScoreRepositoryInterface;
 use Src\Bc\Domain\Model\Player\PlayerRepositoryInterface;
 use Src\Bc\Application\Player\Register\Handler as PlayerHandler;
-use Src\Bc\Application\Start\Handler as GameHandler;
-use Src\Bc\Application\Move\Handler as MoveHandler;
-use Src\Bc\Application\Score\Handler as ScoreHandler;
-use Src\Bc\Application\Stop\Handler as StopHandler;
+use Src\Bc\Application\Game\Start\Handler as GameHandler;
+use Src\Bc\Application\Game\Move\Handler as MoveHandler;
+use Src\Bc\Application\Game\Score\Handler as ScoreHandler;
+use Src\Bc\Application\Game\Stop\Handler as StopHandler;
 
 return [
     FlusherInterface::class => fn(ContainerInterface $c) => new DoctrineFlusher(

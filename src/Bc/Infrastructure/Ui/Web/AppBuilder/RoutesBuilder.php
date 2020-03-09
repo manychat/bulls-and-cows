@@ -24,9 +24,9 @@ final class RoutesBuilder extends AbstractBuilder
                     ->process($r, $h)
             );
 
-        $this->getApp()->post('/level-choose', Action\Level\Choose\Action::class . '::handle')
+        $this->getApp()->post('/level-choose', Action\Game\Level\Choose\Action::class . '::handle')
             ->add(
-                fn(Request $r, Handler $h) => (new Validation($validator, new Action\Level\Choose\Form($r)))
+                fn(Request $r, Handler $h) => (new Validation($validator, new Action\Game\Level\Choose\Form($r)))
                     ->process($r, $h)
             );
 
@@ -42,9 +42,9 @@ final class RoutesBuilder extends AbstractBuilder
                     ->process($r, $h)
             );
 
-        $this->getApp()->get('/scores', Action\Score\Action::class . '::handle')
+        $this->getApp()->get('/scores', Action\Game\Score\Action::class . '::handle')
             ->add(
-                fn(Request $r, Handler $h) => (new Validation($validator, new Action\Score\Form($r)))
+                fn(Request $r, Handler $h) => (new Validation($validator, new Action\Game\Score\Form($r)))
                     ->process($r, $h)
             );
     }

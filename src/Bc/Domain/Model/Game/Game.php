@@ -7,8 +7,6 @@ namespace Src\Bc\Domain\Model\Game;
 use DateTimeImmutable;
 use Src\Bc\Domain\Model\Id;
 use Doctrine\ORM\Mapping as ORM;
-use Src\Bc\Domain\Model\Shared\Figures;
-use Src\Bc\Domain\Model\Shared\RulesDto;
 use Src\Bc\Domain\Model\Player\Player;
 
 /**

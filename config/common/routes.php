@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 use Psr\Container\ContainerInterface;
 use Src\Bc\Application\Player\Register\Handler as PlayerHandler;
-use Src\Bc\Application\Start\Handler as GameHandler;
-use Src\Bc\Application\Move\Handler as MoveHandler;
-use Src\Bc\Application\Score\Handler as ScoreHandler;
-use Src\Bc\Application\Stop\Handler as StopHandler;
+use Src\Bc\Application\Game\Start\Handler as GameHandler;
+use Src\Bc\Application\Game\Move\Handler as MoveHandler;
+use Src\Bc\Application\Game\Score\Handler as ScoreHandler;
+use Src\Bc\Application\Game\Stop\Handler as StopHandler;
 use Src\Bc\Infrastructure\Ui\Web\Action;
 
 return [
@@ -17,7 +17,7 @@ return [
         $c->get(PlayerHandler::class),
     ),
 
-    Action\Level\Choose\Action::class => fn(ContainerInterface $c) => new Action\Level\Choose\Action(
+    Action\Game\Level\Choose\Action::class => fn(ContainerInterface $c) => new Action\Game\Level\Choose\Action(
         $c->get(GameHandler::class),
     ),
 
@@ -29,7 +29,7 @@ return [
         $c->get(StopHandler::class),
     ),
 
-    Action\Score\Action::class => fn(ContainerInterface $c) => new Action\Score\Action(
+    Action\Game\Score\Action::class => fn(ContainerInterface $c) => new Action\Game\Score\Action(
         $c->get(ScoreHandler::class),
     ),
 ];
