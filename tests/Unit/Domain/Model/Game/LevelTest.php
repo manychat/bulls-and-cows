@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Test\Unit\Domain\Model\Game;
 
 use InvalidArgumentException;
-use PHPUnit\Framework\TestCase;
 use Src\Bc\Domain\Model\Game\Level;
+use Test\Unit\AbstractBaseTest;
 
-final class LevelTest extends TestCase
+final class LevelTest extends AbstractBaseTest
 {
     public function testConstructShouldFailWhenLevelIsInvalid(): void
     {

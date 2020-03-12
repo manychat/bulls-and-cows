@@ -4,28 +4,24 @@ declare(strict_types=1);
 
 namespace Test\Unit\Domain\Model\Game\Score;
 
-use PHPUnit\Framework\TestCase;
-use Src\Bc\Domain\Model\Game\Score\Score;
+use Test\Unit\AbstractBaseTest;
 
-final class ScoreTest extends TestCase
+final class ScoreTest extends AbstractBaseTest
 {
-    private const TEST_SUBSCRIBER_ID = 1;
-
     public function testIsBelongsToShouldReturnTrue(): void
     {
-        self::assertTrue($this->getScore(self::TEST_SUBSCRIBER_ID)->isBelongsTo(self::TEST_SUBSCRIBER_ID));
+        $isBelongsTo = $this->getEntitiesManger()->getScore()->isBelongsTo(
+            $this->getEntitiesManger()::TEST_SUBSCRIBER_ID
+        );
+
+        self::assertTrue($isBelongsTo);
     }
 
     public function testIsBelongsToShouldReturnFalse(): void
     {
-        $score = $this->getScore(self::TEST_SUBSCRIBER_ID);
+        $score = $this->getEntitiesManger()->getScore();
         $anotherSubscriberId = 2;
 
         self::assertFalse($score->isBelongsTo($anotherSubscriberId));
-    }
-
-    private function getScore(int $subscriberId): Score
-    {
-        return new Score($subscriberId, '', 0);
     }
 }

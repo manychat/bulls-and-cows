@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Test\Unit\Domain\Model\Game;
 
 use InvalidArgumentException;
-use PHPUnit\Framework\TestCase;
 use Src\Bc\Domain\Model\Game\Figures;
+use Test\Unit\AbstractBaseTest;
 
-final class FiguresTest extends TestCase
+final class FiguresTest extends AbstractBaseTest
 {
     public function testConstructShouldFailWhenFiguresAreNotNumbers(): void
     {
@@ -33,7 +33,7 @@ final class FiguresTest extends TestCase
 
     public function testConstructShouldSuccess(): void
     {
-        $figuresRaw = '0123';
+        $figuresRaw = $this->getEntitiesManger()::TEST_FIGURES;
         $figures = new Figures($figuresRaw);
 
         self::assertEquals($figuresRaw, $figures->getFigures());
@@ -46,7 +46,7 @@ final class FiguresTest extends TestCase
 
     public function testToStringShouldSuccess(): void
     {
-        $figuresRaw = '0123';
+        $figuresRaw = $this->getEntitiesManger()::TEST_FIGURES;
         $figures = new Figures($figuresRaw);
 
         self::assertEquals($figuresRaw, (string)$figures);
@@ -64,7 +64,7 @@ final class FiguresTest extends TestCase
 
     public function testCompareShouldReturnTwoBullsAndOneCow(): void
     {
-        $figures1 = new Figures('0123');
+        $figures1 = $this->getEntitiesManger()->getFigures();
         $figures2 = new Figures('0134');
 
         $result = $figures1->compare($figures2);
