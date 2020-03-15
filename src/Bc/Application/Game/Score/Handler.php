@@ -19,14 +19,14 @@ final class Handler
         $this->scoreBoard = $scoreBoard;
     }
 
-    public function handle(Command $request): ScoreBoard
+    public function handle(Command $command): ScoreBoard
     {
         $scoresRaw = $this->scores->getTop();
         $this->scoreBoard->addRawScores($scoresRaw);
 
         if (
-            !$this->scoreBoard->isPLayerIn($request->getSubscriberId()) &&
-            $score = $this->scores->getScore($request->getSubscriberId())
+            !$this->scoreBoard->isPLayerIn($command->getSubscriberId()) &&
+            $score = $this->scores->getScore($command->getSubscriberId())
         ) {
             $this->scoreBoard->addRawScore($score);
         }

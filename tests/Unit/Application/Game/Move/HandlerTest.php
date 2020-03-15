@@ -21,19 +21,16 @@ final class HandlerTest extends AbstractBaseTest
 
     private MemoryGameRepository $games;
 
-    private MemoryMoveRepository $moves;
-
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->players = new MemoryPlayerRepository();
         $this->games = new MemoryGameRepository();
-        $this->moves = new MemoryMoveRepository();
         $this->handler = new Handler(
             $this->players,
             $this->games,
-            $this->moves,
+            new MemoryMoveRepository(),
             new DummyFlusher(),
             $this->getEntitiesManger()->getRules()
         );

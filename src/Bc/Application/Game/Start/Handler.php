@@ -35,20 +35,20 @@ final class Handler
     }
 
     /**
-     * @param Command $request
+     * @param Command $command
      *
      * @throws Exception
      * @throws PlayerNotFoundException
      * @throws RuntimeException
      */
-    public function handle(Command $request): void
+    public function handle(Command $command): void
     {
-        $player = $this->players->getBySubscriberId($request->getSubscriberId());
+        $player = $this->players->getBySubscriberId($command->getSubscriberId());
         $game = $this->games->findNewByPlayerId($player->getId());
 
         if (null === $game) {
             try {
-                $game = new Game(Id::next(), $player, new Level($request->getLevel()), Figures::generate());
+                $game = new Game(Id::next(), $player, new Level($command->getLevel()), Figures::generate());
 
                 $this->games->add($game);
 

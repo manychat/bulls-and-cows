@@ -46,7 +46,7 @@ final class Handler
     }
 
     /**
-     * @param Command $request
+     * @param Command $command
      *
      * @return Result
      * @throws Exception
@@ -54,13 +54,13 @@ final class Handler
      * @throws GameNotFoundException
      * @throws RuntimeException
      */
-    public function handle(Command $request): Result
+    public function handle(Command $command): Result
     {
-        $player = $this->players->getBySubscriberId($request->getSubscriberId());
+        $player = $this->players->getBySubscriberId($command->getSubscriberId());
         $game = $this->games->getNewByPlayerId($player->getId());
 
         try {
-            $move = new Move(Id::next(), $game, new Figures($request->getFigures()));
+            $move = new Move(Id::next(), $game, new Figures($command->getFigures()));
         } catch (InvalidArgumentException $e) {
             throw new RuntimeException($e->getMessage(), $e->getCode(), $e);
         }

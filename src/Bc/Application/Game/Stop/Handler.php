@@ -28,13 +28,13 @@ final class Handler
     }
 
     /**
-     * @param Command $request
+     * @param Command $command
      *
      * @throws PlayerNotFoundException
      */
-    public function handle(Command $request): void
+    public function handle(Command $command): void
     {
-        $player = $this->players->getBySubscriberId($request->getSubscriberId());
+        $player = $this->players->getBySubscriberId($command->getSubscriberId());
         $game = $this->games->findNewByPlayerId($player->getId());
 
         if (null !== $game) {
