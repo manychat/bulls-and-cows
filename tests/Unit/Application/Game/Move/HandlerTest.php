@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Test\Unit\Application\Game\Move;
 
 use Src\Bc\Application\Game\Move\Command;
-use Src\Bc\Application\Game\Move\Handler as MoveHandler;
+use Src\Bc\Application\Game\Move\Handler;
 use Src\Bc\Domain\Model\Game\Level;
 use Src\Bc\Infrastructure\Domain\Model\DummyFlusher;
 use Src\Bc\Infrastructure\Domain\Model\Game\MemoryGameRepository;
@@ -15,7 +15,7 @@ use Test\Unit\AbstractBaseTest;
 
 final class HandlerTest extends AbstractBaseTest
 {
-    private MoveHandler $handler;
+    private Handler $handler;
 
     private MemoryPlayerRepository $players;
 
@@ -30,7 +30,7 @@ final class HandlerTest extends AbstractBaseTest
         $this->players = new MemoryPlayerRepository();
         $this->games = new MemoryGameRepository();
         $this->moves = new MemoryMoveRepository();
-        $this->handler = new MoveHandler(
+        $this->handler = new Handler(
             $this->players,
             $this->games,
             $this->moves,
