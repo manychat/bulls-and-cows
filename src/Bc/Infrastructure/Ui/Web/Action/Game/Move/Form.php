@@ -12,16 +12,15 @@ final class Form implements FormInterface
 {
     /**
      * @var int
-     * @Assert\NotBlank()
-     * @Assert\Type("int")
-     * @Assert\Positive()
+     * @Assert\NotBlank(message="id.required")
+     * @Assert\Positive(message="id.required")
      */
     private $id;
 
     /**
      * @var string
-     * @Assert\NotBlank()
-     * @Assert\Type("string")
+     * @Assert\NotBlank(message="figures.required")
+     * @Assert\Type("string", message="figures.string")
      */
     private $figures;
 

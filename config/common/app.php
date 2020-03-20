@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Src\Bc\Infrastructure\Translations\TranslatorFactory;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Src\Bc\Infrastructure\Ui\Web\Validator\Validator;
 use Psr\Container\ContainerInterface;
@@ -40,15 +42,29 @@ return [
 
     ErrorsCatcherMiddleware::class => new ErrorsCatcherMiddleware(),
 
-    ValidatorInterface::class => function (): ValidatorInterface {
+    ValidatorInterface::class => function (ContainerInterface $c): ValidatorInterface {
         AnnotationRegistry::registerLoader('class_exists');
 
         return Validation::createValidatorBuilder()
             ->enableAnnotationMapping()
+            ->setTranslator($c->get(TranslatorInterface::class))
             ->getValidator();
     },
 
     Validator::class => fn(ContainerInterface $c) => new Validator(
         $c->get(ValidatorInterface::class),
     ),
+
+    TranslatorInterface::class => fn(ContainerInterface $c) => TranslatorFactory::build($c),
+
+    'config' => [
+        'translations' => [
+            'locale' => 'ru',
+            'format' => 'php',
+            'dir' => ROOT_DIR . '/src/Bc/Infrastructure/Translations/data',
+            'files' => [
+                'validators.ru.php',
+            ],
+        ],
+    ],
 ];
