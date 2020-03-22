@@ -68,6 +68,9 @@ final class Handler
         }
 
         if ($game->isMovesLimitReached($this->rules)) {
+            $game->loose();
+            $this->flusher->flush($move, $game);
+
             throw new RuntimeException($this->translator->trans('game.attempt_limit_reached'));
         }
 
