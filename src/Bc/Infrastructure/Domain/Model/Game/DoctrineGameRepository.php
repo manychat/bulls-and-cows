@@ -46,7 +46,7 @@ final class DoctrineGameRepository implements GameRepositoryInterface
     {
         $game = $this->findNewByPlayerId($playerId);
         if (null === $game) {
-            throw new GameNotFoundException('Game not found.');
+            throw new GameNotFoundException();
         }
 
         return $game;

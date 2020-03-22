@@ -17,12 +17,7 @@ final class Errors
 
     public function __toString(): string
     {
-        $rows = [];
-        foreach ($this->toArray() as $field => $errors) {
-            $rows[] = "{$field}: " . implode(' ', $errors);
-        }
-
-        return implode('; ', $rows);
+        return implode('; ', array_map(fn($errors) => implode(', ', $errors), $this->toArray()));
     }
 
     public function toArray(): array

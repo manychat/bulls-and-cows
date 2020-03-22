@@ -15,6 +15,7 @@ use Src\Bc\Domain\Model\Game\Level;
 use Src\Bc\Domain\Model\Game\Figures;
 use Src\Bc\Domain\Model\Player\PlayerNotFoundException;
 use Src\Bc\Domain\Model\Player\PlayerRepositoryInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class Handler
 {
@@ -24,38 +25,41 @@ final class Handler
 
     private FlusherInterface $flusher;
 
+    private TranslatorInterface $translator;
+
     public function __construct(
         PlayerRepositoryInterface $players,
         GameRepositoryInterface $games,
-        FlusherInterface $flusher
+        FlusherInterface $flusher,
+        TranslatorInterface $translator
     ) {
         $this->players = $players;
         $this->games = $games;
         $this->flusher = $flusher;
+        $this->translator = $translator;
     }
 
     /**
      * @param Command $command
      *
      * @throws Exception
-     * @throws PlayerNotFoundException
      * @throws RuntimeException
      */
     public function handle(Command $command): void
     {
-        $player = $this->players->getBySubscriberId($command->getSubscriberId());
-        $game = $this->games->findNewByPlayerId($player->getId());
+        try {
+            $player = $this->players->getBySubscriberId($command->getSubscriberId());
+            $game = $this->games->findNewByPlayerId($player->getId());
 
-        if (null === $game) {
-            try {
+            if (null === $game) {
                 $game = new Game(Id::next(), $player, new Level($command->getLevel()), Figures::generate());
 
                 $this->games->add($game);
 
                 $this->flusher->flush($game);
-            } catch (InvalidArgumentException $e) {
-                throw new RuntimeException($e->getMessage(), $e->getCode(), $e);
             }
+        } catch (InvalidArgumentException|PlayerNotFoundException $e) {
+            throw new RuntimeException($this->translator->trans($e->getMessage()), $e->getCode(), $e);
         }
     }
 }

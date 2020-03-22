@@ -44,7 +44,7 @@ final class DoctrinePlayerRepository implements PlayerRepositoryInterface
     {
         $player = $this->findBySubscriberId($subscriberId);
         if (null === $player) {
-            throw new PlayerNotFoundException('Player not found.');
+            throw new PlayerNotFoundException();
         }
 
         return $player;

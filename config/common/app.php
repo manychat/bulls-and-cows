@@ -64,6 +64,7 @@ return [
             'dir' => ROOT_DIR . '/src/Bc/Infrastructure/Translations/data',
             'files' => [
                 'validators.ru.php',
+                'errors.ru.php',
             ],
         ],
     ],

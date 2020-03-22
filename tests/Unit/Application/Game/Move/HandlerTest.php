@@ -11,6 +11,7 @@ use Src\Bc\Infrastructure\Domain\Model\DummyFlusher;
 use Src\Bc\Infrastructure\Domain\Model\Game\MemoryGameRepository;
 use Src\Bc\Infrastructure\Domain\Model\Game\Move\MemoryMoveRepository;
 use Src\Bc\Infrastructure\Domain\Model\Player\MemoryPlayerRepository;
+use Test\Helper\DummyTranslator;
 use Test\Unit\AbstractBaseTest;
 
 final class HandlerTest extends AbstractBaseTest
@@ -32,7 +33,8 @@ final class HandlerTest extends AbstractBaseTest
             $this->games,
             new MemoryMoveRepository(),
             new DummyFlusher(),
-            $this->getEntitiesManger()->getRules()
+            $this->getEntitiesManger()->getRules(),
+            new DummyTranslator(),
         );
     }
 

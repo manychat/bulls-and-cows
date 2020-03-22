@@ -25,7 +25,7 @@ final class Level
     public function __construct(string $levelRaw)
     {
         $this->level = trim($levelRaw);
-        Assert::oneOf($this->level, self::ALL, 'Choose correct level');
+        Assert::oneOf($this->level, self::ALL, 'level.easy_or_hard');
     }
 
     public function getLevel(): string

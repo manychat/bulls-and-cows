@@ -18,6 +18,7 @@ use Src\Bc\Domain\Model\Game\Move\MoveRepositoryInterface;
 use Src\Bc\Domain\Model\Game\Figures;
 use Src\Bc\Domain\Model\Player\PlayerNotFoundException;
 use Src\Bc\Domain\Model\Player\PlayerRepositoryInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class Handler
 {
@@ -31,18 +32,22 @@ final class Handler
 
     private RulesDto $rules;
 
+    private TranslatorInterface $translator;
+
     public function __construct(
         PlayerRepositoryInterface $players,
         GameRepositoryInterface $games,
         MoveRepositoryInterface $moves,
         FlusherInterface $flusher,
-        RulesDto $rules
+        RulesDto $rules,
+        TranslatorInterface $translator
     ) {
         $this->players = $players;
         $this->games = $games;
         $this->moves = $moves;
         $this->flusher = $flusher;
         $this->rules = $rules;
+        $this->translator = $translator;
     }
 
     /**
@@ -50,23 +55,20 @@ final class Handler
      *
      * @return Result
      * @throws Exception
-     * @throws PlayerNotFoundException
-     * @throws GameNotFoundException
      * @throws RuntimeException
      */
     public function handle(Command $command): Result
     {
-        $player = $this->players->getBySubscriberId($command->getSubscriberId());
-        $game = $this->games->getNewByPlayerId($player->getId());
-
         try {
+            $player = $this->players->getBySubscriberId($command->getSubscriberId());
+            $game = $this->games->getNewByPlayerId($player->getId());
             $move = new Move(Id::next(), $game, new Figures($command->getFigures()));
-        } catch (InvalidArgumentException $e) {
-            throw new RuntimeException($e->getMessage(), $e->getCode(), $e);
+        } catch (InvalidArgumentException|PlayerNotFoundException|GameNotFoundException $e) {
+            throw new RuntimeException($this->translator->trans($e->getMessage()), $e->getCode(), $e);
         }
 
         if ($game->isMovesLimitReached($this->rules)) {
-            throw new RuntimeException('Attempt limit reached.');
+            throw new RuntimeException($this->translator->trans('game.attempt_limit_reached'));
         }
 
         $result = $game->getFigures()->compare($move->getFigures());

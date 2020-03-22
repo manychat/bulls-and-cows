@@ -21,6 +21,7 @@ use Src\Bc\Application\Game\Start\Handler as GameHandler;
 use Src\Bc\Application\Game\Move\Handler as MoveHandler;
 use Src\Bc\Application\Game\Score\Handler as ScoreHandler;
 use Src\Bc\Application\Game\Stop\Handler as StopHandler;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 return [
     FlusherInterface::class => fn(ContainerInterface $c) => new DoctrineFlusher(
@@ -44,6 +45,7 @@ return [
         $c->get(PlayerRepositoryInterface::class),
         $c->get(GameRepositoryInterface::class),
         $c->get(FlusherInterface::class),
+        $c->get(TranslatorInterface::class),
     ),
 
     MoveRepositoryInterface::class => fn(ContainerInterface $c) => new DoctrineMoveRepository(
@@ -64,6 +66,7 @@ return [
         $c->get(MoveRepositoryInterface::class),
         $c->get(FlusherInterface::class),
         $c->get(RulesDto::class),
+        $c->get(TranslatorInterface::class),
     ),
 
     ScoreRepositoryInterface::class => fn(ContainerInterface $c) => new DoctrineScoreRepository(
@@ -80,6 +83,7 @@ return [
         $c->get(PlayerRepositoryInterface::class),
         $c->get(GameRepositoryInterface::class),
         $c->get(FlusherInterface::class),
+        $c->get(TranslatorInterface::class),
     ),
 
     ScoreBoard::class => fn(ContainerInterface $c) => new ScoreBoard(

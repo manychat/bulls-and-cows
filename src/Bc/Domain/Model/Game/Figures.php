@@ -22,9 +22,11 @@ final class Figures
      */
     public function __construct(string $figuresRaw)
     {
-        $length = \count(array_unique(str_split($figuresRaw)));
-        Assert::digits($figuresRaw, 'Only figures are allowed');
-        Assert::eq($length, self::LENGTH, 'The number must consist of 4 unique figures');
+        $figures = str_split($figuresRaw);
+        $lengthUnique = \count(array_unique($figures));
+        $length = \count($figures);
+        Assert::digits($figuresRaw, 'figures.only_digits_allowed');
+        Assert::allEq([$length, $lengthUnique], self::LENGTH, 'figures.must_consist_of_4_unique_figures');
         $this->figures = $figuresRaw;
     }
 

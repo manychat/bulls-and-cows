@@ -10,6 +10,7 @@ use Src\Bc\Domain\Model\Game\Level;
 use Src\Bc\Infrastructure\Domain\Model\DummyFlusher;
 use Src\Bc\Infrastructure\Domain\Model\Game\MemoryGameRepository;
 use Src\Bc\Infrastructure\Domain\Model\Player\MemoryPlayerRepository;
+use Test\Helper\DummyTranslator;
 use Test\Unit\AbstractBaseTest;
 
 final class HandlerTest extends AbstractBaseTest
@@ -30,6 +31,7 @@ final class HandlerTest extends AbstractBaseTest
             $this->players,
             $this->games,
             new DummyFlusher(),
+            new DummyTranslator(),
         );
     }
 

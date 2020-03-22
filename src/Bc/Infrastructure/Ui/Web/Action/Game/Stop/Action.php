@@ -10,7 +10,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Src\Bc\Application\Game\Stop\Handler;
 use Src\Bc\Application\Game\Stop\Command;
-use Src\Bc\Domain\Model\Player\PlayerNotFoundException;
+use Src\Bc\Application\RuntimeException;
 
 final class Action implements RequestHandlerInterface
 {
@@ -25,7 +25,7 @@ final class Action implements RequestHandlerInterface
      * @param ServerRequestInterface $request
      *
      * @return ResponseInterface
-     * @throws PlayerNotFoundException
+     * @throws RuntimeException
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {

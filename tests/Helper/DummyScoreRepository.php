@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Test\Unit\Application\Game\Score;
+namespace Test\Helper;
 
 use Src\Bc\Domain\Model\Game\Score\ScoreRepositoryInterface;
-use Test\Helper\EntitiesManger;
 
 final class DummyScoreRepository implements ScoreRepositoryInterface
 {

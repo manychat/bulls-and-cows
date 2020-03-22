@@ -7,6 +7,7 @@ namespace Test\Unit\Application\Game\Score;
 use Src\Bc\Application\Game\Score\Command;
 use Src\Bc\Application\Game\Score\Handler;
 use Src\Bc\Domain\Model\Game\Score\ScoreBoard;
+use Test\Helper\DummyScoreRepository;
 use Test\Unit\AbstractBaseTest;
 
 final class HandlerTest extends AbstractBaseTest

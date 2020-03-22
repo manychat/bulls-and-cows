@@ -12,8 +12,6 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Src\Bc\Application\Game\Move\Handler;
 use Src\Bc\Application\Game\Move\Command;
 use Src\Bc\Application\RuntimeException;
-use Src\Bc\Domain\Model\Game\GameNotFoundException;
-use Src\Bc\Domain\Model\Player\PlayerNotFoundException;
 
 final class Action implements RequestHandlerInterface
 {
@@ -29,8 +27,6 @@ final class Action implements RequestHandlerInterface
      *
      * @return ResponseInterface
      * @throws Exception
-     * @throws PlayerNotFoundException
-     * @throws GameNotFoundException
      * @throws RuntimeException
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
