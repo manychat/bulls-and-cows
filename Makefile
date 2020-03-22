@@ -28,3 +28,7 @@ migration:
 
 test:
 	docker-compose exec php-cli composer test
+
+permissions:
+	sudo chown -R root:root var
+	sudo chmod -R 777 var

@@ -28,16 +28,8 @@ final class Action implements RequestHandlerInterface
 
         return new JsonResponse(
             [
-                'version' => 'v2',
-                'content' => [
-                    'messages' => [
-                        [
-                            'type' => 'text',
-                            'text' => (string)$scoreBoard,
-                        ],
-                    ],
-                ],
-            ],
+                'score_board' => (string)$scoreBoard,
+            ]
         );
     }
 }
