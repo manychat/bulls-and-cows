@@ -44,7 +44,7 @@ SUM(CASE
    WHEN g.result = true AND g.level = :hard THEN :hard_victory_points
    WHEN g.result = true AND g.level = :easy THEN :easy_victory_points
    ELSE 0 END
-) - SUM(CASE WHEN g.result = false THEN :easy_losing_points ELSE 0 END) score
+) - SUM(CASE WHEN g.result = false THEN :losing_points ELSE 0 END) score
 '
             )
             ->from(Game::class, 'g')
@@ -56,7 +56,7 @@ SUM(CASE
                     ':hard' => Level::HARD,
                     ':hard_victory_points' => $this->rules->getPointsForHardVictory(),
                     ':easy_victory_points' => $this->rules->getPointsForEasyVictory(),
-                    ':easy_losing_points' => $this->rules->getPointsForLosing(),
+                    ':losing_points' => $this->rules->getPointsForLosing(),
                 ]
             )
             ->groupBy('p.subscriberId, p.createdAt, p.name');

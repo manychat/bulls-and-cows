@@ -29,7 +29,7 @@ final class ScoreBoard
 
             $str .= $position > $this->rules->getScoreBoardSize()
                 ? '...' . PHP_EOL
-                : "{$position}) ";
+                : "{$position}. ";
 
             $str .= "{$score->getName()}: {$score->getScore()}" . PHP_EOL;
         }
