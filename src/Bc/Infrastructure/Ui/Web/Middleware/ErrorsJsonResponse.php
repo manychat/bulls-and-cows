@@ -14,6 +14,17 @@ final class ErrorsJsonResponse extends JsonResponse
         array $headers = [],
         int $encodingOptions = self::DEFAULT_JSON_FLAGS
     ) {
-        parent::__construct(['errors' => $errors], $status, $headers, $encodingOptions);
+        parent::__construct(
+            [
+                'is_victory' => false,
+                'bulls' => 0,
+                'cows' => 0,
+                'moves_left' => 0,
+                'errors' => $errors,
+            ],
+            $status,
+            $headers,
+            $encodingOptions
+        );
     }
 }

@@ -50,6 +50,7 @@ final class Result
             'bulls' => $this->getBulls(),
             'cows' => $this->getCows(),
             'moves_left' => $this->getMovesLeft(),
+            'errors' => '',
         ];
     }
 }

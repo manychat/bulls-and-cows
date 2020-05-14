@@ -32,7 +32,9 @@ final class Figures
 
     public static function generate(): self
     {
-        $figures = implode('', array_rand(range(0, 9), self::LENGTH));
+        $array = array_rand(range(0, 9), self::LENGTH);
+        shuffle($array);
+        $figures = implode('', $array);
 
         return new static($figures);
     }
